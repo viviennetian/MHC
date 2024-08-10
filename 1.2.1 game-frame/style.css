@@ -1,0 +1,136 @@
+#game-container {
+    margin: 20px;
+}
+
+#story-text {
+    margin-bottom: 20px;
+}
+
+#choices {
+    margin-bottom: 20px;
+}
+
+.choice {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.choice:hover {
+    background-color: #0056b3;
+}
+
+#wallet {
+    margin-bottom: 20px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+#new-game-button {
+    background-color: #dc3545;
+}
+
+#new-game-button:hover {
+    background-color: #c82333;
+}
+
+#right-corner {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    /* background-color: #007bff; */
+
+}
+
+/* #medical-records-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+} */
+
+#medical-records-button:hover {
+    background-color: #0056b3;
+}
+
+#medical-records-container h3 {
+    margin-top: 20px;
+}
+
+#medical-records-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#current-treatment,
+#history-records {
+    margin-bottom: 80px;
+}
+
+/* styles.css */
+.modal {
+    display: none;
+    /* 默认隐藏 */
+    position: fixed;
+    /* 固定定位 */
+    z-index: 1;
+    /* 置于顶层 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* 宽度100% */
+    height: 100%;
+    /* 高度100% */
+    overflow: auto;
+    /* 如果需要滚动条 */
+    background-color: rgb(0, 0, 0);
+    /* 背景色 */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* 黑色背景，带有透明度 */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% 从顶部，自动水平居中 */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    /* 宽度 */
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>elevator</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/brickLetter_mapstyle.css">
+    <link rel="stylesheet" href="styles/elevator_styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'bricks';
+            src: url('fonts/bricksVF.ttf') format('truetype');
+        }
+
+
+        body {
+            cursor: url('assets/cursor.svg'), default;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgb(251, 255, 170);
+            overflow: hidden;
+            /* 防止滚动条影响布局 */
+        }
+
+        .container {
+            width: 90vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: white;
+        }
+
+        .department-sign {
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            bottom: 84vh;
+            transform: translateX(-50%);
+            margin: 0;
+            font-family: "bricks";
+            fill: black;
+            -webkit-text-stroke: 4px #ffffff;
+            letter-spacing: 0.4vw;
+            font-size: 1.5vw;
+        }
+
+        .floor-container {
+            width: 25vw;
+            height: 80vh;
+            border: 0px solid rgba(235, 22, 8, 1);
+            position: absolute;
+            left: 50%;
+            bottom: 2vh;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .button-elevator {
+            font-family: "bricks";
+            color: #ffffff;
+            -webkit-text-stroke: 0.06vw #00ffff;
+            letter-spacing: 0.5vw;
+            font-size: 3vw;
+            position: absolute;
+            display: inline-block;
+            right: 7vw;
+            padding-left: 0.5vw;
+            padding-right: 0.5vw;
+            margin-bottom: 4vh;
+            z-index: 3;
+            background-color: #b7b7b7;
+            border: 0.1vw solid #00ffff;
+        }
+
+        .button-elevator:hover {
+            color: #000000;
+            border: 0.1vw solid oldlace;
+            background-color: #00ffff;
+            -webkit-text-stroke: 0.06vw #ffffff;
+            transition-duration: 0.2s;
+        }
+
+        .floor-container2 {
+            position: absolute;
+            left: 57vw;
+            top: 26.8vh;
+            width: 6vw;
+            height: 80vh;
+            border: 0px solid #00ffff;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .pink,
+        .blue {
+            position: relative;
+            width: 0.5vw;
+            height: 10vh;
+        }
+
+        .recSmallPink-v,
+        .recSmallBlue-v {
+            width: 0.5vw;
+            height: 9.5vh;
+            position: absolute;
+            right: 0;
+            top: 0.5vw;
+        }
+
+        .recSmallPink-h,
+        .recSmallBlue-h {
+            height: 0.5vw;
+            /* 设置高度为 1vw，与竖放矩形的宽度相同 */
+            width: 9.5vh;
+            position: absolute;
+            display: inline-block;
+            right: 0.5vw;
+        }
+
+        .recSmallPink-v {
+            background-color: rgba(251, 234, 238, 1);
+        }
+
+        .recSmallPink-h {
+            background-color: rgba(251, 234, 238, 1);
+        }
+
+        .recSmallBlue-v {
+            background-color: #00ffff;
+        }
+
+        .recSmallBlue-h {
+            background-color: #00ffff;
+        }
+
+
+        .rectangle1,
+        .rectangle2,
+        .rectangle3 {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgb(255, 96, 94);
+            border: 0.1vw solid rgba(235, 22, 8, 1);
+        }
+
+        .rectangle1 {
+            width: 16vw;
+            height: 90vh;
+            bottom: 0vh;
+        }
+
+        .rectangle2 {
+            width: 22vw;
+            height: 2.5vh;
+            bottom: 2.5vh;
+        }
+
+        .rectangle3 {
+            width: 24vw;
+            height: 2.5vh;
+            bottom: 0vh;
+        }
+
+        #elevator-button1 {
+            bottom: 4vh;
+        }
+
+        #elevator-button2 {
+            bottom: 14vh;
+        }
+
+        #elevator-button3 {
+            bottom: 24vh;
+        }
+
+        #elevator-button4 {
+            bottom: 34vh;
+        }
+
+        #elevator-button5 {
+            bottom: 44vh;
+        }
+
+        #elevator-button6 {
+            bottom: 54vh;
+        }
+
+        #elevator-button7 {
+            bottom: 64vh;
+        }
+
+        /* 添加媒体查询以调整不同屏幕宽度下的样式 */
+        @media only screen and (max-width: 900px) {
+            .rectangle1 {
+                width: 36vw;
+            }
+
+            .rectangle2 {
+                width: 50vw;
+            }
+
+            .rectangle3 {
+                width: 56vw;
+            }
+
+            .department-sign {
+                font-size: 3vw;
+            }
+
+            .floor-container {
+                width: 35vw;
+            }
+
+            .button-elevator {
+                font-size: 6vw;
+                right: 10vw;
+            }
+
+            .floor-container2 {
+                width: 7vw;
+                height: 55vh;
+            }
+
+            .recSmallPink-v,
+            .recSmallBlue-v {
+                width: 2vw;
+            }
+
+            .recSmallPink-h,
+            .recSmallBlue-h {
+                height: 2vw;
+                width: 7vw;
+            }
+        }
+    </style>
+</head>
+
+<body id="container">
+    <div>
+        <div class="rectangle1"></div>
+        <div class="rectangle2"></div>
+        <div class="rectangle3"></div>
+    </div>
+    <div class="department-sign">DEPARTMENTS</div>
+    <div class="floor-container">
+        <div class="button-elevator" id="elevator-button1">OFFICE</div>
+        <div class="button-elevator" id="elevator-button2">VISUAL</div>
+        <div class="button-elevator" id="elevator-button3">DIGTAL</div>
+        <div class="button-elevator" id="elevator-button4">SOCIAL</div>
+        <div class="button-elevator" id="elevator-button5">LABEL</div>
+        <div class="button-elevator" id="elevator-button6">DATA</div>
+        <div class="button-elevator" id="elevator-button7">BODY</div>
+    </div>
+    <div class="floor-container2">
+        <div class='pink'>
+            <div class="recSmallPink-v"></div>
+            <div class="recSmallPink-h"></div>
+        </div>
+        <div class='pink'>
+            <div class="recSmallPink-v"></div>
+            <div class="recSmallPink-h"></div>
+        </div>
+        <div class='blue'>
+            <div class="recSmallBlue-v"></div>
+            <div class="recSmallBlue-h"></div>
+        </div>
+        <div class='blue'>
+            <div class="recSmallBlue-v"></div>
+            <div class="recSmallBlue-h"></div>
+        </div>
+        <div class='blue'>
+            <div class="recSmallBlue-v"></div>
+            <div class="recSmallBlue-h"></div>
+        </div>
+        <div class='pink'>
+            <div class="recSmallPink-v"></div>
+            <div class="recSmallPink-h"></div>
+        </div>
+        <div class='pink'>
+            <div class="recSmallPink-v"></div>
+            <div class="recSmallPink-h"></div>
+        </div>
+    </div>
+    <!-- Code injected by live-server -->
+    <script>
+        // <![CDATA[  <-- For SVG support
+        if ('WebSocket' in window) {
+            (function () {
+                function refreshCSS() {
+                    var sheets = [].slice.call(document.getElementsByTagName("link"));
+                    var head = document.getElementsByTagName("head")[0];
+                    for (var i = 0; i < sheets.length; ++i) {
+                        var elem = sheets[i];
+                        var parent = elem.parentElement || head;
+                        parent.removeChild(elem);
+                        var rel = elem.rel;
+                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                        }
+                        parent.appendChild(elem);
+                    }
+                }
+                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+                var address = protocol + window.location.host + window.location.pathname + '/ws';
+                var socket = new WebSocket(address);
+                socket.onmessage = function (msg) {
+                    if (msg.data == 'reload') window.location.reload();
+                    else if (msg.data == 'refreshcss') refreshCSS();
+                };
+                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                    console.log('Live reload enabled.');
+                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+                }
+            })();
+        }
+        else {
+            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+        }
+        // ]]>
+    </script>
+</body>
+
+</html>

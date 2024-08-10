@@ -1,0 +1,166 @@
+/* 导航栏 */
+.notice {
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+
+    align-items: fix-start;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: -160px;
+    z-index: 100;
+}
+
+.doctor {
+    height: 400px;
+    display: flex;
+    flex-direction: row;
+    margin-top: -60px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.left-section {
+    display: flex;
+    position: relative;
+    /* 内联块 */
+    width: 30%;
+}
+
+.feathered-background-blue {
+    display: flex;
+    position: absolute;
+    z-index: -1;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background-color: #42ffff;
+    /* 设置与文本容器相同的背景颜色 */
+    filter: blur(4px);
+    /* 设置模糊效果 */
+    opacity: 0.8;
+}
+
+.back-button {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 20px;
+    bottom: 0;
+
+
+    padding: 10px 10px;
+    /* 内边距 */
+    margin: 10px 10px;
+    /* 外边距 */
+
+    height: fit-content;
+    width: fit-content;
+
+
+    background-color: #fff000;
+    /* 绿色背景 */
+    border: 4px #ffffff;
+    /* 无边框 */
+    color: rgb(0, 0, 0);
+    /* 白色文字 */
+    text-align: center;
+    /* 文字居中 */
+    text-decoration: none;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 14px;
+    font-family: "roboto condensed";
+    font-size: 16px;
+    /* 字体大小 */
+
+    cursor: pointer;
+    /* 鼠标指针样式 */
+    transition-duration: 0.1s;
+
+}
+
+
+
+/* 添加悬停效果 */
+.back-button:hover {
+    background-color: #42ffff;
+}
+
+.middle-section {
+    flex: 1;
+    margin-left: 70px;
+    margin-right: 10px;
+
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.right-section {
+    width: 25%;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+}
+
+.marginDown {
+    margin-bottom: 30px;
+}
+
+.marginTop {
+    margin-top: 30px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /*只是一个保险，不会被stretch*/
+}
+
+.blank {
+    flex: 1;
+}
+
+.confirm-button {
+    display: flex;
+    z-index: 20;
+
+    padding: 10px 10px;
+    /* 内边距 */
+    margin: 10px 10px;
+    /* 外边距 */
+    width: fit-content;
+    height: fit-content;
+
+    background-color: #f2ff00;
+    /* 绿色背景 */
+    border: none;
+    /* 无边框 */
+    color: rgb(0, 0, 0);
+    /* 文字颜色 */
+
+    text-align: center;
+    /* 文字居中 */
+    text-decoration: none;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 14px;
+    font-family: "roboto condensed";
+    font-size: 16px;
+    /* 字体大小 */
+
+    cursor: pointer;
+    /* 鼠标指针样式 */
+    transition-duration: 0.1s;
+}
+
+.confirm-button:hover {
+    background-color: #42ffff;
+}

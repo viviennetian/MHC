@@ -1,0 +1,242 @@
+#elevator {
+    margin: 0;
+    background: rgb(251, 255, 170);
+
+}
+
+.department-sign {
+    position: absolute;
+    z-index: 1;
+    left: 50.2%;
+    bottom: 670px;
+    /* 距离底部的距离 */
+    transform: translateX(-50%);
+    margin: 0;
+    font-family: "bricks";
+    fill: black;
+    -webkit-text-stroke: 4px #ffffff;
+    /* 设置8像素的黑色描边 */
+    letter-spacing: 5px;
+    font-size: 28px;
+
+}
+
+.floor-container {
+    width: 300px;
+    /* 矩形宽度 */
+    height: 650px;
+    /* 矩形高度 */
+
+    border: 0px solid rgba(235, 22, 8, 1);
+    /* 边框颜色和宽度 */
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    /* 距离底部的距离 */
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+#elevator-button1 {
+    position: absolute;
+    bottom: 20px;
+}
+
+#elevator-button2 {
+    position: absolute;
+    bottom: 100px;
+}
+
+#elevator-button3 {
+    position: absolute;
+    bottom: 180px;
+}
+
+#elevator-button4 {
+    position: absolute;
+    bottom: 260px;
+}
+
+#elevator-button5 {
+    position: absolute;
+    bottom: 340px;
+}
+
+#elevator-button6 {
+    position: absolute;
+    bottom: 420px;
+}
+
+#elevator-button7 {
+    position: absolute;
+    bottom: 500px;
+}
+
+.button-elevator {
+    font-family: "bricks";
+    color: #ffffff;
+    -webkit-text-stroke: 1px #00ffff;
+    /* 设置8像素的黑色描边 */
+    letter-spacing: 8px;
+    font-size: 56px;
+
+    position: absolute;
+    /* 使元素的宽度和高度自动适应内容 */
+    display: inline-block;
+
+    right: 75px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-bottom: 40px;
+    z-index: 3;
+
+    background-color: #b7b7b7;
+    border: 1px solid #00ffff;
+}
+
+
+.button-elevator:hover {
+
+    font-family: "bricks";
+    color: #000000;
+    border: 1px solid oldlace;
+    background-color: #00ffff;
+    -webkit-text-stroke: 1px #ffffff;
+
+    transition-duration: 0.2s;
+}
+
+.floor-container2 {
+    position: absolute;
+    left: 50%;
+    bottom: 50px;
+    /* 距离底部的距离 */
+    width: 160px;
+    /* 矩形宽度 */
+    height: 545px;
+    /* 矩形高度 */
+
+    border: 0px solid #00ffff;
+    /* 边框颜色和宽度 */
+
+
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+
+.pink {
+    position: relative;
+    left: 55px;
+    bottom: 0px;
+    width: 100%;
+    height: 78px;
+}
+
+.recSmallPink-v {
+    width: 10px;
+    /* 矩形宽度 */
+    height: 66px;
+    /* 矩形高度 */
+    background-color: rgba(251, 234, 238, 1);
+    /* 矩形颜色 */
+    position: absolute;
+    right: 0px;
+    top: 10px;
+
+}
+
+.recSmallPink-h {
+    height: 10px;
+    /* 矩形宽度 */
+    width: 50px;
+    /* 矩形高度 */
+    background-color: rgba(251, 234, 238, 1);
+    /* 矩形颜色 */
+    position: absolute;
+    display: inline-block;
+    right: 10px;
+
+}
+
+.blue {
+    position: relative;
+    left: 55px;
+    bottom: 0px;
+    width: 100%;
+    height: 78px;
+}
+
+.recSmallBlue-v {
+    width: 10px;
+    /* 矩形宽度 */
+    height: 66px;
+    /* 矩形高度 */
+    background-color: #00ffff;
+    /* 矩形颜色 */
+    position: absolute;
+    right: 0px;
+    top: 10px;
+
+}
+
+.recSmallBlue-h {
+    height: 10px;
+    /* 矩形宽度 */
+    width: 50px;
+    /* 矩形高度 */
+    background-color: #00ffff;
+    /* 矩形颜色 */
+    position: absolute;
+    display: inline-block;
+    right: 10px;
+
+}
+
+.rectangle1 {
+    width: 260px;
+    /* 矩形宽度 */
+    height: 700px;
+    /* 矩形高度 */
+    background-color: rgb(255, 96, 94);
+    /* 矩形颜色 */
+    border: 1px solid rgba(235, 22, 8, 1);
+    /* 边框颜色和宽度 */
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    /* 距离底部的距离 */
+    transform: translateX(-50%);
+}
+
+.rectangle2 {
+    width: 380px;
+    /* 矩形宽度 */
+    height: 25px;
+    /* 矩形高度 */
+    background-color: rgb(255, 96, 94);
+    /* 矩形颜色 */
+    border: 1px solid rgba(235, 22, 8, 1);
+    /* 边框颜色和宽度 */
+    position: absolute;
+    left: 50%;
+    bottom: 25px;
+    /* 距离底部的距离 */
+    transform: translateX(-50%);
+}
+
+.rectangle3 {
+    width: 440px;
+    /* 矩形宽度 */
+    height: 25px;
+    /* 矩形高度 */
+    background-color: rgb(255, 96, 94);
+    /* 矩形颜色 */
+    border: 1px solid rgba(235, 22, 8, 1);
+    /* 边框颜色和宽度 */
+    position: absolute;
+    left: 50%;
+    bottom: 0px;
+    /* 距离底部的距离 */
+    transform: translateX(-50%);
+}

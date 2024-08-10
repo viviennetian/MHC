@@ -1,0 +1,80 @@
+#socialtest {
+    margin: 0;
+    background: #FAFDB9;
+    background-image: repeating-linear-gradient(to bottom,
+            #7CF2FD 0.5px, #7CF2FD 0.5px, transparent 20px, transparent 20px);
+    cursor: none;
+}
+
+.mouse {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgb(255, 0, 0);
+    position: fixed;
+    left: -200px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+p {
+    margin: 0;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.typewriter {
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#typewriter-text-1 {
+    display: inline-block;
+    max-width: fit-content;
+}
+
+#typewriter-text-2 {
+    display: inline-block;
+}
+
+/*bricks字体的背景和描边设置*/
+.special {
+    margin: 0;
+    font-family: "bricks";
+    fill: black;
+    -webkit-text-stroke: 4px #ffffff;
+    /* 设置8像素的黑色描边 */
+    letter-spacing: 15px;
+}
+
+.BGandStroke {
+    font-size: 80px;
+    align-items: center;
+    /* 垂直居中 */
+    text-align: center;
+    /* 确保文本内容水平居中 */
+    border: 8px solid #FAFDB9;
+    /* 设置2像素的黑色边框 */
+    background-color: #9BFDFA;
+
+    /* 设置背景颜色为浅黄色 */
+    padding-top: 30px;
+    /* 设置10像素的内边距 */
+    padding-left: 30px;
+    padding-right: 15px;
+    display: inline-block;
+    /* 使元素的宽度和高度自动适应内容 */
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>choice</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="game-container">
+        <div id="story-text"></div>
+        <div id="choices"></div>
+        <div id="wallet">wallet: <span id="money">1000</span></div>
+        <button id="new-game-button">Restart</button>
+    </div>
+    <div id="right-corner">
+        <button id="medical-records-button">查看病例本</button>
+        <div id="diseasesTips"></div>
+    </div>
+
+    <!--
+        病例本
+    -->
+    <div id="medical-records-container" class="modal">
+        <button id="close-button">返回游戏</button>
+        <h2>病例本</h2>
+        <div id="current-treatment">
+            <h3>正在治疗</h3>
+            <div id="current-treatment-records"></div>
+        </div>
+        <div id="history-records">
+            <h3>历史记录</h3>
+            <div id="history-treatment-records"></div>
+        </div>
+    </div>
+
+    <script src="diseases.js"></script>
+    <script src="game-logic.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

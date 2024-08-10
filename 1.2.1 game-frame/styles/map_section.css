@@ -1,0 +1,58 @@
+/*地图部分*/
+.background-map {
+    display: flex;
+    height: 600px;
+    margin: 20px;
+    position: relative;
+}
+
+.left-blank {
+    width: 25%;
+    position: relative;
+}
+
+.right-container {
+    flex: 1;
+    margin-left: 70px;
+    position: relative;
+
+}
+
+.feathered-background-yellow {
+    position: absolute;
+    display: inline-block;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f8ff77;
+    /* 设置与文本容器相同的背景颜色 */
+    filter: blur(14px);
+    /* 设置模糊效果 */
+    opacity: 0.9;
+}
+
+.feathered-background-red {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #EEFDA4;
+    /* 设置与文本容器相同的背景颜色 */
+    filter: blur(2px);
+    /* 设置模糊效果 */
+    z-index: -1;
+}
+
+.diag-room1 {
+    position: absolute;
+    top: 60px;
+    left: 40px;
+    z-index: 1;
+    height: 100px;
+}
+
+/*地图部分*/
