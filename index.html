@@ -4,22 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>choice</title>
+    <title>Meme Health</title>
     <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'bricks';
+            src: url('fonts/bricksVF.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'source sans';
+            src: url('fonts/SourceHanSansSC-VF.otf') format('otf');
+        }
+    </style>
 </head>
 
 <body>
-    <div id="game-container">
+    <div id="gamecontainer">
         <div id="story-text"></div>
-        <div id="choices"></div>
-        <div id="wallet">wallet: <span id="money">1000</span></div>
+        <div id="choices">
+            <!--
+        这里扩充页面
+    -->
+        </div>
+        <div id="diseasesTips"></div>
+
         <button id="new-game-button">Restart</button>
     </div>
     <div id="right-corner">
+        <div id="wallet">wallet: <span id="money">1000</span></div>
         <button id="medical-records-button">查看病例本</button>
-        <div id="diseasesTips"></div>
-    </div>
 
+    </div>
     <!--
         病例本
     -->
