@@ -12,33 +12,33 @@ let medicalRecords = JSON.parse(localStorage.getItem('medicalRecords')) || []; /
 const story = {
     start: {
         nodename: 'start',
-        text: "欢迎来到模因健康中心，这里是大厅。听说您身体不适，请检查您的钱包，是否要进入大门。",
+        text: "Welcome to the Meme Health Center! This is the lobby. Heard you’re not feeling well—better check your wallet before you enter the gate.",
         choices: [
             { text: "去分诊台", next: "triage" }
         ]
     },
     triage: {
         nodename: 'triage',
-        text: "电梯厅。",
+        text: "Here is the elevator hall.",
         choices: [
             { text: "分诊", next: "diagnosis" }
         ]
     },
     diagnosis: {
         nodename: 'diagnosis',
-        text: "你被分诊到以下科室：\n",
+        text: "You’ve entered the following examination room:\n",
         choices: [
             { text: "选择科室", next: "selectDepartment" }
         ]
     },
     treatment: {
         nodename: 'treatment',
-        text: "医生房间。",
+        text: "examination room.",
         choices: []
     },
     end: {
         nodename: 'end',
-        text: "所有疾病已治愈，游戏结束。",
+        text: "All diseases have been cured.\n Game over.",
         choices: [
             { text: "重新开始", next: "startNewGame" }
         ]
@@ -106,8 +106,8 @@ function showStory(storyNode) {
 
 function processEnd() {
     console.log('end..');
-    //clear 正在治疗的病例
-    medicalRecords = medicalRecords.filter(record => record.status !== '正在治疗');
+    //clear under treatment的病例
+    medicalRecords = medicalRecords.filter(record => record.status !== 'under treatment');
     const record = {
 
     };
@@ -137,11 +137,11 @@ function proceedToStartActionDo() {
     diseasesTips.innerHTML = "";
     if (question1.value !== '') {
         console.log(patientDiseases);
-        //clear 正在治疗的病例
+        //clear under treatment的病例
 
-        medicalRecords = medicalRecords.filter(record => record.status !== '正在治疗');
+        medicalRecords = medicalRecords.filter(record => record.status !== 'under treatment');
         const record = {
-            status: '正在治疗',
+            status: 'under treatment',
             department: getDiseasesDepartment(),
             disease: null,
             treatment: null,
@@ -149,7 +149,7 @@ function proceedToStartActionDo() {
         };
         medicalRecords.push(record);
         saveGameState(); // 保存游戏状态和病历本
-        diseasesTips.innerHTML = "分诊台建议您去：" + getDiseasesDepartment();
+        diseasesTips.innerHTML = "The triage desk recommends you go to:" + getDiseasesDepartment();
         //替换现在界面
         // 加载 payment.html 并替换内容
         fetch('02 payment.html')
@@ -184,49 +184,46 @@ function getDiseasesDepartment() {
     }
     return department;
 }
+
 function proceedToTriage() {
     const choicesDiv = document.getElementById("choices");
 
     // 加载 elevator.html 文件的内容
-    fetch('03 elevator.html')
+    fetch('03 elevator_scale.html')
         .then(response => response.text())
         .then(html => {
             // 将 elevator.html 的内容插入到 choicesDiv 中
             choicesDiv.innerHTML = html;
 
-            // 生成科室按钮并附加到电梯厅内容中
-            const departmentButtonsDiv = document.getElementById("department-buttons");
-            const diseaseDepartments = Object.keys(diseases);
+            // 查找电梯按钮的容器
+            const departmentButtonsDiv = document.querySelector('.floor-container.department-buttons');
 
-            diseaseDepartments.forEach(departmentName => {
+            // 获取所有已经存在的按钮元素
+            const buttons = departmentButtonsDiv.querySelectorAll('.button-elevator');
+
+            // 为每个按钮添加点击事件处理程序
+            buttons.forEach((button, index) => {
+                const departmentName = button.innerText.trim();
+                console.log(`Department Name: ${departmentName}`);
+                console.log(`Disease Data: `, diseases[departmentName]);
                 const department = {
                     department: departmentName,
                     disease: diseases[departmentName]
                 };
 
-                // 创建按钮并添加到 department-buttons 容器中
-                const button = createDepartmentButton(department);
-                departmentButtonsDiv.appendChild(button);
+                // 添加点击事件处理程序
+                button.addEventListener('click', () => proceedToTriageActionDo(department));
             });
+
         });
 }
 
-// 封装按钮创建逻辑的函数
-function createDepartmentButton(department) {
-    const button = document.createElement("button");
-    button.className = "choice";
-    button.innerText = department.department;
-
-    // 使用 addEventListener 添加事件处理程序
-    button.addEventListener('click', () => proceedToTriageActionDo(department));
-
-    return button;
-}
 
 function proceedToTriageActionDo(department) {
     currentDepartment = department;
     showStory(story.diagnosis);
 }
+
 
 //医生房间，诊断部分
 function processDiagnosis() {
@@ -238,9 +235,9 @@ function processDiagnosis() {
     console.log(currentDepartment);
     const found = patientDiseases.find(item => item.department === currentDepartment['department']);
     if (found) {
-        medicalRecords = medicalRecords.filter(record => record.status !== '正在治疗');
+        medicalRecords = medicalRecords.filter(record => record.status !== 'under treatment');
         const record = {
-            status: '正在治疗',
+            status: 'under treatment',
             department: currentDepartment['department'],
             disease: found.disease.symptoms,
             treatment: null,
@@ -292,9 +289,9 @@ function treatmentDo() {
 
                 // 更新病历本
                 console.log(found);
-                medicalRecords = medicalRecords.filter(record => record.status !== '正在治疗');
+                medicalRecords = medicalRecords.filter(record => record.status !== 'under treatment');
                 const record = {
-                    status: '正在治疗',
+                    status: 'under treatment',
                     department: department,
                     disease: found.disease.name,
                     symptoms: found.disease.symptoms,
@@ -333,7 +330,7 @@ function showDisease(found) {
 
     const treatmentChoices = found['disease']['treatments'].map(treatment => {
         return {
-            text: `${treatment.method} - ${treatment.price}元`,
+            text: `$ ${treatment.method} - ${treatment.price}`,
             next: "treatmentComplete",
             treatment: treatment,
             department: currentDepartment,
@@ -478,7 +475,7 @@ function treatmentComplete(choice) {
 
         // 更新病历本
         const record = {
-            status: '历史记录',
+            status: 'history',
             department: choice.department.department,
             disease: choice.disease.disease.name,
             symptoms: choice.disease.disease.symptoms,
@@ -499,10 +496,9 @@ function treatmentComplete(choice) {
             showEndPage();
         }
     } else {
-        alert("你的钱不够！");
+        alert("You don't have enough money!");
     }
 }
-
 function showEndPage() {
     currentStoryNode = story.end;
     showStory(currentStoryNode)
@@ -518,15 +514,19 @@ function showEndPage() {
             // 显示结算信息
             const summaryDiv = document.getElementById("summary");
             summaryDiv.innerHTML = `
-                剩余金钱: ${money}元<br>
-                你已治疗的疾病: ${medicalRecords.length}例
+                Remaining money: $ ${money}<br>
+                Diseases you have treated: ${medicalRecords.length} cases
             `;
 
             // 绑定重新开始按钮事件
             const restartButton = document.getElementById("restartButton");
-            restartButton.onclick = () => startGame(true);
+            restartButton.onclick = () => {
+                startGame(true); // 保持原有的逻辑
+                document.getElementById("money").innerText = money; // 更新钱包显示
+            };
         });
 }
+
 
 
 function generateRandomDiseases() {
@@ -548,7 +548,7 @@ function startNewGame() {
     //这里还要改的
     //medicalRecords = []; // 重置病历本
     medicalRecords = JSON.parse(localStorage.getItem('medicalRecords')) || [];
-    medicalRecords = medicalRecords.filter(record => record.status !== '正在治疗');
+    medicalRecords = medicalRecords.filter(record => record.status !== 'under treatment');
     const record = {
 
     };
@@ -568,20 +568,20 @@ function loadMedicalRecords() {
     const currentTreatmentRecordsDiv = document.getElementById('current-treatment-records');
     const historyTreatmentRecordsDiv = document.getElementById('history-treatment-records');
 
-    const currentTreatmentRecords = medicalRecords.filter(record => record.status === '正在治疗');
-    const historyRecords = medicalRecords.filter(record => record.status === '历史记录');
+    const currentTreatmentRecords = medicalRecords.filter(record => record.status === 'under treatment');
+    const historyRecords = medicalRecords.filter(record => record.status === 'history');
 
     if (currentTreatmentRecords.length === 0) {
-        currentTreatmentRecordsDiv.innerText = "暂无正在治疗的记录。";
+        currentTreatmentRecordsDiv.innerText = "No ongoing treatment records.";
     } else {
         if (flag) {
             currentTreatmentRecordsDiv.innerHTML = currentTreatmentRecords.map(record =>
                 `<div>
-                    <strong>部门:</strong> ${record.department}<br>
-                    <strong>疾病:</strong> ${record.disease}<br>
-                    <strong>症状:</strong> ${record.symptoms || '未知'}<br>
-                    <strong>治疗:</strong> ${record.treatment || '未治疗'}<br>
-                    <strong>结果:</strong> ${record.result || '未知'}
+                    <strong>department</strong> ${record.department}<br>
+                    <strong>disease:</strong> ${record.disease}<br>
+                    <strong>symptoms:</strong> ${record.symptoms || 'unknown'}<br>
+                    <strong>treatment:</strong> ${record.treatment || 'untreated'}<br>
+                    <strong>result:</strong> ${record.result || 'unknown'}
                 </div>`
             ).join('<br><br>');
         } else {
@@ -596,15 +596,15 @@ function loadMedicalRecords() {
     }
 
     if (historyRecords.length === 0) {
-        historyTreatmentRecordsDiv.innerText = "暂无历史记录。";
+        historyTreatmentRecordsDiv.innerText = "No history records available.";
     } else {
         historyTreatmentRecordsDiv.innerHTML = historyRecords.map(record =>
             `<div>
-                <strong>部门:</strong> ${record.department}<br>
-                <strong>疾病:</strong> ${record.disease}<br>
-                <strong>症状:</strong> ${record.symptoms || '未知'}<br>
-                <strong>治疗:</strong> ${record.treatment || '未治疗'}<br>
-                <strong>结果:</strong> ${record.result || '未知'}
+                  <strong>department</strong> ${record.department}<br>
+                    <strong>disease:</strong> ${record.disease}<br>
+                    <strong>symptoms:</strong> ${record.symptoms || 'unknown'}<br>
+                    <strong>treatment:</strong> ${record.treatment || 'untreated'}<br>
+                    <strong>result:</strong> ${record.result || 'unknown'}
             </div>`
         ).join('<br><br>');
     }

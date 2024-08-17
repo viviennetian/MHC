@@ -7,15 +7,36 @@
     <title>Meme Health Center-reception</title>
     <link rel="stylesheet" href="style.css"> <!-- 引入CSS样式 -->
     <script src="game-logic.js" defer></script> <!-- 引入JavaScript文件 -->
+
+    <style>
+        #restartButton {
+            display: fixed;
+            bottom: 10px;
+            left: 10px;
+            padding: 30px;
+            color: black;
+            background-color: rgba(222, 187, 187, 0);
+            border: 2px solid #4CAF50;
+            cursor: pointer;
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            font-size: 20px;
+            font-weight: 300;
+        }
+
+        #restartButton {
+            background-color: #cdfcff;
+        }
+    </style>
+
 </head>
 
 <body>
     <!-- end.html -->
     <div>
-        <h2>结算页</h2>
-        <p>恭喜你，治疗结束！以下是你的结算信息：</p>
+        <h2>Checkout</h2>
+        <p>Congratulations, your treatment is complete! Here’s your billing information:</p>
         <p id="summary"></p>
-        <button class="choice" id="restartButton">重新开始</button>
+        <button class="choice" id="restartButton">restart</button>
     </div>
 
 </body>

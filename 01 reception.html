@@ -1,4 +1,3 @@
-<!-- start.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,23 +7,80 @@
     <title>Meme Health Center-reception</title>
     <link rel="stylesheet" href="style.css"> <!-- 引入CSS样式 -->
     <script src="game-logic.js" defer></script> <!-- 引入JavaScript文件 -->
+
+    <style>
+        /* 让 #reception 作为一个垂直方向的 flex 容器 */
+        #reception {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 20px;
+        }
+
+        /* 确保这些元素在垂直方向上各占一行 */
+        #assistentText,
+        #question1,
+        #answerButton {
+            margin-bottom: 20px;
+            width: 100%;
+            /* 让它们占满父容器的宽度 */
+            margin: 10px;
+        }
+
+        #answerButton {
+
+            bottom: 0;
+            padding: 15px;
+            color: black;
+            background-color: rgba(222, 187, 187, 0);
+            border: 2px solid #4CAF50;
+            cursor: pointer;
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            font-size: 20px;
+            font-weight: 300;
+            align-self: flex-start;
+            /* 确保按钮与前面的文本对齐 */
+        }
+
+        #answerButton:hover {
+            background-color: #cdfcff;
+        }
+
+        #question1 {
+
+            width: 100%;
+            /* 确保输入框占满父容器的宽度 */
+            box-sizing: border-box;
+            border: 2px solid #4CAF50;
+            background-color: rgba(222, 187, 187, 0);
+            /* 使得边框内的内容宽度计算正确 */
+        }
+
+        /* 添加辅助文本的样式 */
+        #assistentText {
+            white-space: pre-line;
+            /* 保留换行符并自动换行 */
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            font-size: 15px;
+            font-weight: 300;
+        }
+    </style>
 </head>
 
-<body>
-    <div id="places">分诊台。</div>
+<body id="reception">
+    <div id="places">
+    </div>
     <div id="assistentText">
-        助理：欢迎来到模因健康中心。请问你哪里不舒服，我们致力于帮助您达到脑内模因的平衡。
-        <p>现在请你快填完表格，你影响我自拍的节奏了！</p>
-        <p></p>哦对，理事长前几天发表了文章，《互联网如何大规模传播模因病的机制研究》，你读了吗？记得给理事长转发。</p>
+        Assistant:
+        <br>Welcome to the Meme Health Center.
+        <br>What seems to be bothering you? We’re dedicated to helping you achieve a balanced state of your brain meme.
+        <br>Hurry up and finish the form, you're messing up my selfie flow!
+        <br>Oh, by the way, the chairman published an article a few days ago titled, "A Study on the Mechanisms of How
+        the Internet Spreads Meme Diseases on a Large Scale." Have you read it? Don’t forget to share it for the
+        chairman. </br>
     </div>
     <input id='question1' value='' />
-    <button class="choice" id="answerButton">answer</button>
-
-    </div>
-
-    <script>
-
-    </script>
+    <button class="choice" id="answerButton">Answer</button>
 </body>
 
 </html>

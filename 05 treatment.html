@@ -7,13 +7,51 @@
     <title>Meme Health Center-reception</title>
     <link rel="stylesheet" href="style.css"> <!-- 引入CSS样式 -->
     <script src="game-logic.js" defer></script> <!-- 引入JavaScript文件 -->
+    <style>
+        #nextButton {
+            display: fixed;
+            bottom: 10px;
+            left: 10px;
+            padding: 30px;
+            color: black;
+            background-color: rgba(222, 187, 187, 0);
+            border: 2px solid #4CAF50;
+            cursor: pointer;
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            font-size: 30px;
+            font-weight: 300;
+        }
+
+        #nextButton:hover {
+            background-color: #cdfcff;
+        }
+
+        #treatment-options {
+            display: fixed;
+            bottom: 10px;
+            left: 10px;
+            padding: 30px;
+            color: black;
+            background-color: rgba(222, 187, 187, 0);
+            border: 2px solid #4CAF50;
+            cursor: pointer;
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            font-size: 20px;
+            font-weight: 300;
+        }
+
+        #treatment-options:hover {
+            background-color: #cdfcff;
+        }
+    </style>
 </head>
 
 <body>
     <!-- treatment.html -->
-    <p>医生下诊断，诊断将会写入你的病历本。（这里会有你的疾病名称和症状）</p>
-    <p>你想选择什么样的治疗方式？</p>
-    <button class="choice" id="nextButton">下一步</button>
+    <p>The doctor has made a diagnosis, which will be recorded in your medical file. (Here you'll find the name of your
+        condition and symptoms.</p>
+    <p>What type of treatment would you like to choose?</p>
+    <button class="choice" id="nextButton">next</button>
     <div id="treatment-options"></div>
 
 </body>

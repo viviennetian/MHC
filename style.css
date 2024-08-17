@@ -1,19 +1,44 @@
 body {
-    font-family: 'roboto', sans-serif;
-    font-size: 20px;
-    font-family: 'source sans';
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    /* 确保body占据整个视口宽度 */
+    height: 100vh;
+    /* 确保body占据整个视口高度 */
+    overflow-x: hidden;
+    /* 防止水平滚动条出现 */
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    /* 确保子元素靠左对齐 */
 }
 
-#game-container {
+#gamecontainer {
+    border: 2px solid #4CAF50;
+    display: absolute;
     margin: 20px;
 }
 
 #story-text {
-    margin-bottom: 20px;
+    border: 2px solid #4CAF50;
+    text-align: left;
+    /* 确保文本内容靠左对齐 */
+    margin: 0;
+    /* 调整或去除多余的外边距 */
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    z-index: 20;
 }
 
 #choices {
+    border: 2px solid #4CAF50;
+    display: flex;
+    left: 0;
+    top: 0;
     margin-bottom: 20px;
+
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    z-index: 20;
 }
 
 .choice {
@@ -31,28 +56,31 @@ body {
 }
 
 #wallet {
-    margin-bottom: 20px;
+    border: 2px solid #af4c96;
 }
 
 button {
     margin-top: 10px;
     padding: 10px;
-    background-color: #28a745;
-    color: white;
     border: none;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #218838;
-}
 
 #new-game-button {
-    background-color: #dc3545;
+    display: fixed;
+    bottom: 0px;
+    left: 0px;
+    padding: 30px;
+    background-color: rgba(222, 187, 187, 0);
+    border: 2px solid #4CAF50;
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    font-size: 20px;
+    font-weight: 300;
 }
 
 #new-game-button:hover {
-    background-color: #c82333;
+    background-color: #ffcacf;
 }
 
 #right-corner {
@@ -69,74 +97,80 @@ button:hover {
     bottom: 10px;
     left: 10px;
     padding: 30px;
-    background-color: #a5a5a5;
-    color: white;
-    border: none;
+
+
+    background-color: rgba(222, 187, 187, 0);
+    border: 2px solid #4CAF50;
     cursor: pointer;
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    font-size: 20px;
+    font-weight: 300;
 }
 
 #medical-records-button:hover {
-    background-color: #656565;
+    background-color: #cdfcff;
 }
 
-#medical-records-container h3 {
-    margin-top: 20px;
-}
 
 #medical-records-container {
-    padding: 20px;
-    background-color: #f8f9fa;
+
+    width: 100vw;
+    height: 100vh;
+    background-color: #fef1ff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    font-size: 20px;
+    font-weight: 300;
+}
+
+#medical-records-header {
+    display: flex;
+    padding: 20px;
+    margin-bottom: 80px;
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    font-size: 70px;
+    font-weight: 600;
+
 }
 
 #current-treatment,
 #history-records {
+    margin: 20px;
     margin-bottom: 80px;
+    border: 2px solid #4CAF50;
 }
 
-/* styles.css */
 .modal {
     display: none;
     /* 默认隐藏 */
     position: fixed;
     /* 固定定位 */
-    z-index: 1;
+    z-index: 100;
     /* 置于顶层 */
     left: 0;
     top: 0;
-    width: 100%;
-    /* 宽度100% */
-    height: 100%;
-    /* 高度100% */
     overflow: auto;
     /* 如果需要滚动条 */
-    background-color: rgb(0, 0, 0);
-    /* 背景色 */
-    background-color: rgba(0, 0, 0, 0.4);
-    /* 黑色背景，带有透明度 */
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    /* 15% 从顶部，自动水平居中 */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    /* 宽度 */
+
+#close-button {
+    display: flex;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background-color: rgba(222, 187, 187, 0);
+    border: 2px solid #4CAF50;
+    cursor: pointer;
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    font-size: 20px;
+    font-weight: 300;
 }
 
-.close-button {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close-button:hover,
-.close-button:focus {
-    color: black;
-    text-decoration: none;
+#close-button:hover,
+#close-button:focus {
+    background-color: #cdfcff;
     cursor: pointer;
 }

@@ -17,7 +17,14 @@
 
         @font-face {
             font-family: 'source sans';
-            src: url('fonts/SourceHanSansSC-VF.otf') format('otf');
+            src: url('fonts/SourceHanSansSC-VF.otf') format('opentype');
+        }
+
+        @font-face {
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            src: url('../fonts/ABCDiatypeSemi-MonoVariable-Trial.ttf') format('truetype');
+            font-weight: 100 900;
+            /* 支持的权重范围 */
         }
     </style>
 </head>
@@ -30,27 +37,29 @@
         这里扩充页面
     -->
         </div>
-        <div id="diseasesTips"></div>
 
-        <button id="new-game-button">Restart</button>
+
+
     </div>
     <div id="right-corner">
+        <div id="diseasesTips"></div>
         <div id="wallet">wallet: <span id="money">1000</span></div>
-        <button id="medical-records-button">查看病例本</button>
+        <button id="medical-records-button">medical Records</button>
+        <button id="new-game-button">restart</button>
 
     </div>
     <!--
         病例本
     -->
     <div id="medical-records-container" class="modal">
-        <button id="close-button">返回游戏</button>
-        <h2>病例本</h2>
+        <button id="close-button">back to MHC</button>
+        <div id="medical-records-header">medical records</div>
         <div id="current-treatment">
-            <h3>正在治疗</h3>
+            <h3>under treatment</h3>
             <div id="current-treatment-records"></div>
         </div>
         <div id="history-records">
-            <h3>历史记录</h3>
+            <h3>history</h3>
             <div id="history-treatment-records"></div>
         </div>
     </div>
