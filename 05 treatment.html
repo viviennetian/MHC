@@ -8,8 +8,13 @@
     <link rel="stylesheet" href="style.css"> <!-- 引入CSS样式 -->
     <script src="game-logic.js" defer></script> <!-- 引入JavaScript文件 -->
     <style>
+        #nextButton,
+        #treatment-options {
+            display: flex;
+            flex-direction: column;
+        }
+
         #nextButton {
-            display: fixed;
             bottom: 10px;
             left: 10px;
             padding: 30px;
@@ -27,7 +32,6 @@
         }
 
         #treatment-options {
-            display: fixed;
             bottom: 10px;
             left: 10px;
             padding: 30px;

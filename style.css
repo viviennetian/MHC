@@ -3,6 +3,7 @@ body {
     padding: 0;
     width: 100vw;
     /* 确保body占据整个视口宽度 */
+
     height: 100vh;
     /* 确保body占据整个视口高度 */
     overflow-x: hidden;
@@ -10,58 +11,47 @@ body {
     background: #fbeaee;
 
     display: flex;
-    flex-direction: row;
     align-items: flex-start;
     /* 确保子元素靠左对齐 */
 }
 
 #gamecontainer {
     /* border: 2px solid #4CAF50; */
-    display: absolute;
     margin: 20px;
 }
 
 #story-text {
-    border: 2px solid #4CAF50;
-    text-align: left;
-    /* 确保文本内容靠左对齐 */
     margin: 0;
-    margin-bottom: 10px;
-    /* 调整或去除多余的外边距 */
-    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-    z-index: 20;
 }
 
 #choices {
-    border: 2px solid #4CAF50;
+    /* border: 2px solid #4CAF50; */
     display: flex;
     left: 0;
     top: 0;
-    margin-bottom: 20px;
 
     font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
     z-index: 20;
 }
 
-.choice {
-    display: block;
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.choice:hover {
-    background-color: #0056b3;
-}
 
 #wallet {
     margin-bottom: 10px;
     border: 2px solid #af4c96;
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    font-size: 20px;
+    font-weight: 300;
 }
 
+
+#right-corner {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    padding: 10px;
+    /* background-color: #007bff; */
+
+}
 
 #new-game-button {
     display: fixed;
@@ -77,15 +67,24 @@ body {
 
 #new-game-button:hover {
     background-color: #ffcacf;
+    transition-duration: 0.3s;
 }
 
-#right-corner {
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    padding: 10px;
-    /* background-color: #007bff; */
+#front-page-button {
+    display: fixed;
+    bottom: 0px;
+    left: 0px;
+    padding: 30px;
+    background-color: rgba(222, 187, 187, 0);
+    border: 2px solid #4CAF50;
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    font-size: 20px;
+    font-weight: 300;
+}
 
+#front-page-button:hover {
+    background-color: #fffeca;
+    transition-duration: 0.3s;
 }
 
 #medical-records-button {
@@ -117,8 +116,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
     font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-    font-size: 20px;
-    font-weight: 300;
+
 }
 
 #medical-records-header {
@@ -131,15 +129,17 @@ body {
 
 }
 
-#current-treatment,
-#history-records {
-    margin: 20px;
-    margin-bottom: 80px;
+#current-treatment-records,
+#history-treatment-records {
     border: 2px solid #4CAF50;
+    margin: 20px;
+    margin-top: 0px;
+    margin-bottom: 80px;
     font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
     font-size: 16px;
     font-weight: 200;
 }
+
 
 .modal {
     display: none;
@@ -154,6 +154,11 @@ body {
     /* 如果需要滚动条 */
 }
 
+.no-records {
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    font-size: 40px;
+    font-weight: 300;
+}
 
 #close-button {
     display: flex;

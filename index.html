@@ -26,47 +26,109 @@
             font-weight: 100 900;
             /* 支持的权重范围 */
         }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #fafdb9;
+            display: flex;
+            justify-content: center;
+            /* 水平居中 */
+            align-items: center;
+            /* 垂直居中 */
+            flex-direction: column;
+            /* 垂直排列元素 */
+        }
+
+        #about-button {
+            position: absolute;
+            top: 20px;
+            /* 距离顶部10px */
+            left: 20px;
+            /* 距离左侧10px */
+            padding: 8px 14px;
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            font-size: 16px;
+            font-weight: 300;
+            cursor: pointer;
+            background: none;
+            border: 1px solid #000000;
+        }
+
+        #about-button:hover {
+            background: #ffff00;
+            /* 鼠标悬停时的背景色 */
+            transition-duration: 0.3s;
+        }
+
+        #start-container {
+            text-align: center;
+        }
+
+        #mhc {
+            align-items: center;
+            font-family: "bricks";
+            color: #ffffff;
+            font-size: 8vw;
+            -webkit-text-stroke: 1px #000000;
+            /* text-shadow: 0px 0px 2px #000000; */
+            letter-spacing: -0.1vw;
+            line-height: 20vh;
+            /* 行距为24像素 */
+
+
+
+            right: 7vw;
+            padding-left: 0.5vw;
+            padding-right: 0.5vw;
+            margin-bottom: 4vh;
+            z-index: 3;
+        }
+
+        #start-game-button {
+            position: absolute;
+            bottom: 10vh;
+            /* 距离顶部10px */
+            left: 50%;
+            /* 水平位置在页面的50% */
+            transform: translateX(-50%);
+            /* 将按钮的水平位置左移50%按钮的宽度，*/
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            font-size: 20px;
+            font-weight: 300;
+            padding: 10px 20px;
+            cursor: pointer;
+            background: none;
+            border: 1px solid #000000;
+
+        }
+
+        #start-game-button:hover {
+            background: #ffff00;
+            /* 鼠标悬停时的背景色 */
+            transition-duration: 0.3s;
+        }
     </style>
 </head>
 
 <body>
-    <div id="gamecontainer">
-        <div id="story-text"></div>
-        <div id="choices">
-            <!--
-        这里扩充页面
-    -->
-        </div>
-
-
-
-    </div>
-    <div id="right-corner">
-        <div id="diseasesTips"></div>
-        <div id="wallet">wallet: <span id="money">1000</span></div>
-        <button id="medical-records-button">medical Records</button>
-        <button id="new-game-button">restart</button>
-
-    </div>
-    <!--
-        病例本
-    -->
-    <div id="medical-records-container" class="modal">
-        <button id="close-button">back to MHC</button>
-        <div id="medical-records-header">medical records</div>
-        <div id="current-treatment">
-            <h3>under treatment</h3>
-            <div id="current-treatment-records"></div>
-        </div>
-        <div id="history-records">
-            <h3>history</h3>
-            <div id="history-treatment-records"></div>
-        </div>
+    <button id="about-button">about MHC</button>
+    <div id="start-container">
+        <h1 id="mhc">
+            MEME<br>HEALTH&nbsp;&nbsp;&nbsp;CENTER</h1>
+        <button id="start-game-button">
+            start healing journey
+        </button>
     </div>
 
-    <script src="diseases.js"></script>
-    <script src="game-logic.js"></script>
-    <!-- <script src="script.js"></script> -->
+    <script>
+        document.getElementById('start-game-button').addEventListener('click', function () {
+            window.location.href = '00-start.html'; // 跳转到游戏页面
+        });
+    </script>
 </body>
 
 </html>

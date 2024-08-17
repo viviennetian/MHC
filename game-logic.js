@@ -40,10 +40,29 @@ const story = {
         nodename: 'end',
         text: "All diseases have been cured.\n Game over.",
         choices: [
-            { text: "重新开始", next: "startNewGame" }
+            { text: "重新开始", next: "startGame" }
         ]
     }
 };
+
+function startNewGame() {
+    patientDiseases = generateRandomDiseases();
+    let money = Math.floor(Math.random() * (1300 - 500 + 1)) + 500; // 重置钱数
+    currentStoryNode = story.start; // 初始化故事节点
+    //这里还要改的
+    //medicalRecords = []; // 重置病历本
+    medicalRecords = JSON.parse(localStorage.getItem('medicalRecords')) || [];
+    medicalRecords = medicalRecords.filter(record => record.status !== 'under treatment');
+    const record = {
+
+    };
+    medicalRecords.push(record);
+    if (medicalRecords.length <= 0) {
+        medicalRecords = [];
+    }
+    showStory(story.start);
+    saveGameState(); // 保存游戏状态和病历本
+}
 
 function startGame(newGame = false) {
     console.log('startGame function to start a newGame');
@@ -60,10 +79,15 @@ function startGame(newGame = false) {
         currentStoryNode = story.start; // 初始化故事节点
         // 仅在开始新游戏时重置病历本
         medicalRecords = JSON.parse(localStorage.getItem('medicalRecords')) || [];
-        // 重置任务栏
+        medicalRecords = medicalRecords.filter(record => record.status !== 'under treatment');
+        const record = {
+
+        };
+        medicalRecords.push(record);
         if (medicalRecords.length <= 0) {
             medicalRecords = [];
         }
+        saveGameState(); // 保存游戏状态和病历本
         showStory(story.start);
 
     } else {
@@ -72,6 +96,9 @@ function startGame(newGame = false) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById('front-page-button').addEventListener('click', function () {
+        window.location.href = 'index.html'; // 跳转到游戏页面
+    });
     document.getElementById("new-game-button").addEventListener("click", function () {
         startGame(true); // 调用 startGame 并传入参数 true
     });
@@ -90,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 window.onload = () => startGame(true); // 强制从头开始游戏
-// window.onload = () => startNewGame(); // 页面加载时启动新游戏
+
 
 
 function showStory(storyNode) {
@@ -101,10 +128,10 @@ function showStory(storyNode) {
     console.log("Showing story node:", storyNode);
     currentStoryNode = storyNode; // 保存当前故事节点
 
-    const storyText = document.getElementById("story-text");
+    // const storyText = document.getElementById("story-text");
     const choicesDiv = document.getElementById("choices");
 
-    storyText.innerText = storyNode.text;
+    // storyText.innerText = storyNode.text;
     choicesDiv.innerHTML = "";
 
     switch (storyNode.nodename) {
@@ -537,24 +564,6 @@ function generateRandomDiseases() {
 }
 
 
-function startNewGame() {
-    patientDiseases = generateRandomDiseases();
-    let money = Math.floor(Math.random() * (1300 - 500 + 1)) + 500; // 重置钱数
-    currentStoryNode = story.start; // 初始化故事节点
-    //这里还要改的
-    //medicalRecords = []; // 重置病历本
-    medicalRecords = JSON.parse(localStorage.getItem('medicalRecords')) || [];
-    medicalRecords = medicalRecords.filter(record => record.status !== 'under treatment');
-    const record = {
-
-    };
-    medicalRecords.push(record);
-    if (medicalRecords.length <= 0) {
-        medicalRecords = [];
-    }
-    showStory(story.start);
-    saveGameState(); // 保存游戏状态和病历本
-}
 
 /**
  * 加载病历
@@ -571,11 +580,13 @@ function loadMedicalRecords() {
     historyRecords.reverse();
 
     if (currentTreatmentRecords.length === 0) {
-        currentTreatmentRecordsDiv.innerText = "No ongoing treatment records.";
+        currentTreatmentRecordsDiv.innerHTML = '<span style=" font-size: 18px; font-weight: 300; padding: 10px; display: block;">No ongoing treatment records.</span>';
+
+
     } else {
         currentTreatmentRecordsDiv.innerHTML = currentTreatmentRecords.map(record =>
             `<div>
-                <strong>department</strong> ${record.department}<br>
+                <strong>department:</strong> ${record.department}<br>
                 <strong>disease:</strong> ${record.disease}<br>
                 <strong>symptoms:</strong> ${record.symptoms || 'unknown'}<br>
                 <strong>treatment:</strong> ${record.treatment || 'untreated'}<br>
@@ -585,11 +596,13 @@ function loadMedicalRecords() {
     }
 
     if (historyRecords.length === 0) {
-        historyTreatmentRecordsDiv.innerText = "No history records available.";
+        currentTreatmentRecordsDiv.innerHTML = '<span style=" font-size: 18px; font-weight: 300; padding: 10px; display: block;">No history records available.</span>';
     } else {
+        historyTreatmentRecordsDiv.style.fontSize = '18px';
+        historyTreatmentRecordsDiv.style.padding = '10px';
         historyTreatmentRecordsDiv.innerHTML = historyRecords.map(record =>
             `<div>
-                <strong>department</strong> ${record.department}<br>
+                <strong>department:</strong> ${record.department}<br>
                 <strong>disease:</strong> ${record.disease}<br>
                 <strong>symptoms:</strong> ${record.symptoms || 'unknown'}<br>
                 <strong>treatment:</strong> ${record.treatment || 'untreated'}<br>
@@ -598,3 +611,4 @@ function loadMedicalRecords() {
         ).join('<br><br>');
     }
 }
+

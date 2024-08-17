@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Health</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'bricks';
+            src: url('fonts/bricksVF.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'source sans';
+            src: url('fonts/SourceHanSansSC-VF.otf') format('opentype');
+        }
+
+        @font-face {
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            src: url('../fonts/ABCDiatypeSemi-MonoVariable-Trial.ttf') format('truetype');
+            font-weight: 100 900;
+            /* 支持的权重范围 */
+        }
+    </style>
+
+    <script>
+
+    </script>
+</head>
+
+<body>
+    <div id="gamecontainer">
+        <div id="story-text"></div>
+        <div id="choices">
+            <!--
+        这里扩充页面
+    -->
+        </div>
+    </div>
+    <div id="right-corner">
+        <div id="diseasesTips"></div>
+        <div id="wallet">wallet: <span id="money">1000</span></div>
+        <button id="medical-records-button">medical Records</button>
+        <button id="new-game-button">restart</button>
+        <button id="front-page-button">front page</button>
+    </div>
+
+
+
+
+
+
+    <!--
+        病例本
+    -->
+    <div id="medical-records-container" class="modal">
+        <button id="close-button">back to MHC</button>
+        <div id="medical-records-header">medical records</div>
+        <div id="current-treatment">
+            <div id=“header1” style="
+                font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial', monospace; 
+                font-weight: 500; 
+                font-size: 30px;
+                margin:0px;
+                margin-left:20px;
+                ">
+                under treatment
+            </div>
+            <div id="current-treatment-records"></div>
+        </div>
+        <div id="history-records">
+            <div id=“header1” style="
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial', monospace; 
+            font-weight: 500; 
+            font-size: 30px;
+            margin:0px;
+            margin-left:20px;
+            ">
+                history</div>
+            <div id="history-treatment-records"></div>
+        </div>
+    </div>
+
+    <script src="diseases.js"></script>
+    <script src="game-logic.js"></script>
+    <!-- <script src="script.js"></script> -->
+</body>
+
+</html>

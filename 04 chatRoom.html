@@ -8,8 +8,19 @@
     <link rel="stylesheet" href="style.css"> <!-- 引入CSS样式 -->
     <script src="game-logic.js" defer></script> <!-- 引入JavaScript文件 -->
     <style>
+        #diagnosis-department,
+        #pay1,
         #goButton {
-            display: fixed;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            width: 100%;
+            /* 让它们占满父容器的宽度 */
+            margin: 10px;
+        }
+
+        #goButton {
+
             bottom: 10px;
             left: 10px;
             padding: 30px;
@@ -30,8 +41,9 @@
 
 <body>
     <!-- chatRoom.html -->
+    <div>This is:</div>
     <div id="diagnosis-department"></div>
-    <div>chat room</div>
+
     <button class="choice" id="goButton">go</button>
 
 </body>
