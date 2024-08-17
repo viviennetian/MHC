@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="style.css"> <!-- 引入CSS样式 -->
     <script src="game-logic.js" defer></script> <!-- 引入JavaScript文件 -->
     <style>
+        #text,
+        #pay1,
+        #payButton {
+            margin-bottom: 20px;
+            width: 100%;
+            /* 让它们占满父容器的宽度 */
+            margin: 10px;
+        }
+
         #payButton {
             display: fixed;
             bottom: 10px;
@@ -30,7 +39,8 @@
 </head>
 
 <body>
-    <br>This is Payment counter. Please enter how much you'd like to pay us. Remember, your actions will be recorded in
+    <br id="text">This is Payment counter. Please enter how much you'd like to pay us. Remember, your actions will be
+    recorded in
     your credit file.
     <input id="pay1" type="number" value="" />
     <button class="choice" id="payButton">pay</button>

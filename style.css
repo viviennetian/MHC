@@ -7,6 +7,7 @@ body {
     /* 确保body占据整个视口高度 */
     overflow-x: hidden;
     /* 防止水平滚动条出现 */
+    background: #fbeaee;
 
     display: flex;
     flex-direction: row;
@@ -15,7 +16,7 @@ body {
 }
 
 #gamecontainer {
-    border: 2px solid #4CAF50;
+    /* border: 2px solid #4CAF50; */
     display: absolute;
     margin: 20px;
 }
@@ -25,6 +26,7 @@ body {
     text-align: left;
     /* 确保文本内容靠左对齐 */
     margin: 0;
+    margin-bottom: 10px;
     /* 调整或去除多余的外边距 */
     font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
     z-index: 20;
@@ -56,14 +58,8 @@ body {
 }
 
 #wallet {
+    margin-bottom: 10px;
     border: 2px solid #af4c96;
-}
-
-button {
-    margin-top: 10px;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
 }
 
 
@@ -140,6 +136,9 @@ button {
     margin: 20px;
     margin-bottom: 80px;
     border: 2px solid #4CAF50;
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    font-size: 16px;
+    font-weight: 200;
 }
 
 .modal {

@@ -12,7 +12,7 @@ let medicalRecords = JSON.parse(localStorage.getItem('medicalRecords')) || []; /
 const story = {
     start: {
         nodename: 'start',
-        text: "Welcome to the Meme Health Center! This is the lobby. Heard you’re not feeling well—better check your wallet before you enter the gate.",
+        text: "Welcome to the Meme Health Center! \nThis is the lobby. \nHeard you’re not feeling well? \nbetter check your wallet before you enter the gate.",
         choices: [
             { text: "去分诊台", next: "triage" }
         ]
@@ -46,26 +46,53 @@ const story = {
 };
 
 function startGame(newGame = false) {
+    console.log('startGame function to start a newGame');
     if (newGame) {
         patientDiseases = generateRandomDiseases();
-        let money = Math.floor(Math.random() * (1300 - 500 + 1)) + 500; // 每次重新开始游戏时重置钱数
+
+        diseasesTips.innerHTML = "";
+        console.log('diseasesTips.innerHTML cleared');
+
+        money = Math.floor(Math.random() * (1300 - 500 + 1)) + 500; // 每次重新开始游戏时重置钱数
+        console.log('money set to', money);
+        document.getElementById("money").innerText = money;
+
         currentStoryNode = story.start; // 初始化故事节点
         // 仅在开始新游戏时重置病历本
         medicalRecords = JSON.parse(localStorage.getItem('medicalRecords')) || [];
         // 重置任务栏
-        diseasesTips.innerHTML = "";
-
         if (medicalRecords.length <= 0) {
             medicalRecords = [];
         }
-
-
         showStory(story.start);
+
     } else {
         loadGameState();
     }
 }
-//
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("new-game-button").addEventListener("click", function () {
+        startGame(true); // 调用 startGame 并传入参数 true
+    });
+    const modal = document.getElementById('medical-records-container');
+    document.getElementById('medical-records-button').addEventListener("click", function () {
+        loadMedicalRecords();
+        modal.style.display = "block"; // 显示模态窗口  
+        console.log(modal);
+    });
+    // 为关闭按钮添加点击事件监听器  
+    const closeButton = document.getElementById('close-button');
+    closeButton.addEventListener("click", function () {
+        modal.style.display = "none"; // 隐藏模态窗口  
+    });
+
+});
+
+window.onload = () => startGame(true); // 强制从头开始游戏
+// window.onload = () => startNewGame(); // 页面加载时启动新游戏
+
+
 function showStory(storyNode) {
     if (!storyNode) {
         console.error("storyNode is undefined");
@@ -115,6 +142,8 @@ function processEnd() {
 
     saveGameState(); // 保存游戏状态和病历本
 }
+
+
 //proceedToStart
 function proceedToStart() {
     const choicesDiv = document.getElementById("choices");
@@ -278,9 +307,11 @@ function chatRoomActionDo() {
 function treatmentDo() {
     let department = currentDepartment['department'];
     const found = patientDiseases.find(item => item.department === department);
+
     const choicesDiv = document.getElementById("choices");
     choicesDiv.innerHTML = "";
     if (found) {
+        console.log('department match');
         // 加载 treatment.html 内容
         fetch('05 treatment.html')
             .then(response => response.text())
@@ -332,7 +363,7 @@ function showDisease(found) {
         return {
             text: `$ ${treatment.method} - ${treatment.price}`,
             next: "treatmentComplete",
-            treatment: treatment,
+            treatment: treatment,// 这里的 treatment 对象包含了 method 属性
             department: currentDepartment,
             disease: found
         };
@@ -366,10 +397,9 @@ function showDisease(found) {
 
 // 处理治疗选择的函数（示例）  
 function handleTreatmentChoice(choice) {
-    console.log('Selected treatment:', choice.treatment.method, 'at', choice.treatment.price, 'yuan');
+    console.log('Selected treatment:', choice.treatment.method, 'at', choice.treatment.price);
 
-    // 更新金钱和病历
-    money -= choice.treatment.price;
+
     const record = {
         status: '历史记录',
         department: choice.department.department,
@@ -385,34 +415,7 @@ function handleTreatmentChoice(choice) {
 }
 
 
-// function showEndPage() {
-//     const choicesDiv = document.getElementById("choices");
 
-//     // 加载 end.html 文件的内容
-//     fetch('07 end.html')
-//         .then(response => response.text())
-//         .then(html => {
-//             // 将 end.html 的内容插入到 choicesDiv 中
-//             choicesDiv.innerHTML = html;
-
-//             // 显示结算信息
-//             const summaryDiv = document.getElementById("summary");
-//             summaryDiv.innerHTML = `
-//                 剩余金钱: ${gameState.money}元<br>
-//                 你已治疗的疾病: ${gameState.medicalRecords.length}例
-//             `;
-
-//             // 绑定重新开始按钮事件
-//             const restartButton = document.getElementById("restartButton");
-//             restartButton.onclick = () => startGame(true);
-//         });
-// }
-
-
-// function viewMedicalRecords() {
-//     saveGameState(); // 进入病例本前保存当前游戏状态
-//     window.location.href = 'medical-records.html';
-// }
 
 function saveGameState() {
     const gameState = {
@@ -437,20 +440,6 @@ function loadGameState() {
     } else {
         startGame(true);
     }
-}
-
-
-function proceedToSelectDepartment() {
-    const departmentChoices = patientDiseases.map(disease => {
-        return { text: `${disease.department}`, next: "treatment", department: disease.department, disease: disease.disease };
-    });
-
-    const selectDepartmentNode = {
-        text: "选择你要去的科室：",
-        choices: departmentChoices,
-        nodename: 'diagnosis',
-    };
-    story.selectDepartment = selectDepartmentNode;
 }
 
 
@@ -486,8 +475,7 @@ function treatmentComplete(choice) {
 
         saveGameState(); // 保存游戏状态和病历本
 
-        document.getElementById("diseasesTips").innerHTML = getDiseasesDepartment();
-
+        document.getElementById("diseasesTips").innerHTML = "The triage desk recommends you go to:" + getDiseasesDepartment();
         if (patientDiseases.length > 0) {
             // 如果还有剩余疾病，继续选择下一个科室
             showStory(story.triage); // 继续分诊
@@ -499,6 +487,7 @@ function treatmentComplete(choice) {
         alert("You don't have enough money!");
     }
 }
+
 function showEndPage() {
     currentStoryNode = story.end;
     showStory(currentStoryNode)
@@ -527,19 +516,26 @@ function showEndPage() {
         });
 }
 
-
-
 function generateRandomDiseases() {
     const selectedDiseases = [];
     const diseaseDepartments = Object.keys(diseases);
-    const numberOfDiseases = Math.floor(Math.random() * 3) + 1; // 随机1-3种病
+    const numberOfDiseases = Math.min(Math.floor(Math.random() * 3) + 1, diseaseDepartments.length); // 随机生成1-3个疾病，且数量不超过部门的数量
+
+    let availableDepartments = [...diseaseDepartments]; // 创建一个可用部门的副本
+
     for (let i = 0; i < numberOfDiseases; i++) {
-        const randomDepartment = diseaseDepartments[Math.floor(Math.random() * diseaseDepartments.length)];
+        const randomIndex = Math.floor(Math.random() * availableDepartments.length);
+        const randomDepartment = availableDepartments[randomIndex];
         const randomDisease = diseases[randomDepartment][Math.floor(Math.random() * diseases[randomDepartment].length)];
         selectedDiseases.push({ department: randomDepartment, disease: randomDisease });
+
+        // 从可用部门中移除已选择的部门，确保不会重复选择相同的部门
+        availableDepartments.splice(randomIndex, 1);
     }
+
     return selectedDiseases;
 }
+
 
 function startNewGame() {
     patientDiseases = generateRandomDiseases();
@@ -571,28 +567,21 @@ function loadMedicalRecords() {
     const currentTreatmentRecords = medicalRecords.filter(record => record.status === 'under treatment');
     const historyRecords = medicalRecords.filter(record => record.status === 'history');
 
+    // 对历史记录进行逆序排列，确保最新的记录显示在最上面
+    historyRecords.reverse();
+
     if (currentTreatmentRecords.length === 0) {
         currentTreatmentRecordsDiv.innerText = "No ongoing treatment records.";
     } else {
-        if (flag) {
-            currentTreatmentRecordsDiv.innerHTML = currentTreatmentRecords.map(record =>
-                `<div>
-                    <strong>department</strong> ${record.department}<br>
-                    <strong>disease:</strong> ${record.disease}<br>
-                    <strong>symptoms:</strong> ${record.symptoms || 'unknown'}<br>
-                    <strong>treatment:</strong> ${record.treatment || 'untreated'}<br>
-                    <strong>result:</strong> ${record.result || 'unknown'}
-                </div>`
-            ).join('<br><br>');
-        } else {
-            currentTreatmentRecordsDiv.innerHTML = currentTreatmentRecords.map(record =>
-                `<div>
-                    <strong>部门:</strong> ${record.department}<br>
-                  
-                </div>`
-            ).join('<br><br>');
-        }
-
+        currentTreatmentRecordsDiv.innerHTML = currentTreatmentRecords.map(record =>
+            `<div>
+                <strong>department</strong> ${record.department}<br>
+                <strong>disease:</strong> ${record.disease}<br>
+                <strong>symptoms:</strong> ${record.symptoms || 'unknown'}<br>
+                <strong>treatment:</strong> ${record.treatment || 'untreated'}<br>
+                <strong>result:</strong> ${record.result || 'unknown'}
+            </div>`
+        ).join('<br><br>');
     }
 
     if (historyRecords.length === 0) {
@@ -600,11 +589,11 @@ function loadMedicalRecords() {
     } else {
         historyTreatmentRecordsDiv.innerHTML = historyRecords.map(record =>
             `<div>
-                  <strong>department</strong> ${record.department}<br>
-                    <strong>disease:</strong> ${record.disease}<br>
-                    <strong>symptoms:</strong> ${record.symptoms || 'unknown'}<br>
-                    <strong>treatment:</strong> ${record.treatment || 'untreated'}<br>
-                    <strong>result:</strong> ${record.result || 'unknown'}
+                <strong>department</strong> ${record.department}<br>
+                <strong>disease:</strong> ${record.disease}<br>
+                <strong>symptoms:</strong> ${record.symptoms || 'unknown'}<br>
+                <strong>treatment:</strong> ${record.treatment || 'untreated'}<br>
+                <strong>result:</strong> ${record.result || 'unknown'}
             </div>`
         ).join('<br><br>');
     }
