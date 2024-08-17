@@ -8,7 +8,7 @@ body {
     /* 确保body占据整个视口高度 */
     overflow-x: hidden;
     /* 防止水平滚动条出现 */
-    background: #fbeaee;
+    background: #fafdb9;
 
     display: flex;
     align-items: flex-start;
@@ -83,7 +83,7 @@ body {
 }
 
 #front-page-button:hover {
-    background-color: #fffeca;
+    background-color: #ffff00;
     transition-duration: 0.3s;
 }
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meme Health</title>
+    <title>Meme Health Center Front Page</title>
     <link rel="stylesheet" href="style.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap"
@@ -47,7 +47,66 @@
             /* 垂直居中 */
             flex-direction: column;
             /* 垂直排列元素 */
+            background-image: repeating-linear-gradient(to bottom,
+                    /* 方向从左到右 */
+                    #ff79e0 0,
+                    #ff79e0.15vh,
+                    transparent 0.2vh,
+                    transparent 20vh);
+
+            background-size: 50px 50px;
+
         }
+
+        .perspective-background {
+            width: 200%;
+            height: 100%;
+            background-color: #fbffae;
+            /* 背景颜色，代表走廊的深色 */
+            background-image: repeating-linear-gradient(to right,
+                    /* 方向从左到右 */
+                    #ff79e0 0,
+                    #ff79e0.15vh,
+                    transparent 0.2vh,
+                    transparent 10vh);
+            background-size: 30px 30px;
+            /* 背景图案的大小 */
+            transform: perspective(1000px) rotateX(70deg) scaleY(0.7);
+            /* 添加透视和缩放 */
+            transform-origin: bottom;
+            /* 以底部为中心进行透视 */
+            overflow: hidden;
+            /* 确保背景不会超出容器 */
+            z-index: -1;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .perspective-top {
+            position: absolute;
+            top: 0;
+            width: 200%;
+            height: 100%;
+            background-color: #fbffae;
+            /* 背景颜色，代表走廊的深色 */
+            background-image: repeating-linear-gradient(to right,
+                    /* 方向从左到右 */
+                    #ff79e0 0,
+                    #ff79e0.15vh,
+                    transparent 0.2vh,
+                    transparent 10vh);
+            background-size: 80vh 80vh;
+            /* 背景图案的大小 */
+            transform: perspective(1000px) rotateX(-70deg) scaleY(0.7);
+            /* 添加透视和缩放 */
+            transform-origin: top;
+            /* 以底部为中心进行透视 */
+            overflow: hidden;
+            /* 确保背景不会超出容器 */
+            z-index: -2;
+
+        }
+
 
         #about-button {
             position: absolute;
@@ -61,10 +120,13 @@
             font-weight: 300;
             cursor: pointer;
             background: none;
-            border: 1px solid #000000;
+            /* border: 1px solid #000000; */
+            border: none;
+            z-index: 4;
         }
 
         #about-button:hover {
+            border: 1px solid #000000;
             background: #ffff00;
             /* 鼠标悬停时的背景色 */
             transition-duration: 0.3s;
@@ -74,14 +136,54 @@
             text-align: center;
         }
 
+        @keyframes strokeColorChange {
+            0% {
+                -webkit-text-stroke-color: #ffff00;
+            }
+
+            /* 黄色 */
+            25% {
+                -webkit-text-stroke-color: #ef8382;
+            }
+
+            /* 紫色 */
+            50% {
+                -webkit-text-stroke-color: #00ffff;
+            }
+
+            /* 青色 */
+            75% {
+                -webkit-text-stroke-color: #898cfb;
+            }
+
+            /* 红色 */
+            100% {
+                -webkit-text-stroke-color: #ffff00;
+            }
+
+            /* 回到黄色 */
+        }
+
         #mhc {
             align-items: center;
             font-family: "bricks";
             color: #ffffff;
-            font-size: 8vw;
-            -webkit-text-stroke: 1px #000000;
+            font-size: 120px;
+            text-shadow:
+                2px 2px 0 #000,
+                /* 右下 */
+                -2px 2px 0 #000,
+                /* 左下 */
+                2px -2px 0 #000,
+                /* 右上 */
+                -2px -2px 0 #000;
+            /* 左上 */
+            -webkit-text-stroke: 0.02em #ffff00;
             /* text-shadow: 0px 0px 2px #000000; */
-            letter-spacing: -0.1vw;
+            animation: strokeColorChange 10s infinite;
+            /* 动画时长6秒，循环播放 */
+            /* filter: drop-shadow(10px 10px 0px #000000); */
+            letter-spacing: -0.2vw;
             line-height: 20vh;
             /* 行距为24像素 */
 
@@ -96,38 +198,50 @@
 
         #start-game-button {
             position: absolute;
-            bottom: 10vh;
-            /* 距离顶部10px */
+            bottom: 0;
             left: 50%;
             /* 水平位置在页面的50% */
             transform: translateX(-50%);
             /* 将按钮的水平位置左移50%按钮的宽度，*/
-            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-            font-size: 20px;
-            font-weight: 300;
-            padding: 10px 20px;
+            font-family: 'bricks';
+            font-size: 100px;
+            font-weight: 500;
+            color: #ffffff;
+            -webkit-text-stroke: 0.015em #ef8382;
+
+
+            padding: 8vh 50vw;
             cursor: pointer;
             background: none;
-            border: 1px solid #000000;
-
+            border: none;
+            /* border: 1px solid #000000; */
+            opacity: 0;
+            z-index: 2;
         }
 
         #start-game-button:hover {
-            background: #ffff00;
+            background: none;
+            color: #ffffff;
             /* 鼠标悬停时的背景色 */
-            transition-duration: 0.3s;
+            opacity: 0.85;
+            transition: all 0.6s ease-in-out 0.5s;
+            border: 1px #000000;
+
         }
     </style>
 </head>
 
 <body>
+    <div class="perspective-background"></div>
+    <div class="perspective-top"></div>
     <button id="about-button">about MHC</button>
     <div id="start-container">
-        <h1 id="mhc">
-            MEME<br>HEALTH&nbsp;&nbsp;&nbsp;CENTER</h1>
+        <div id="mhc">
+            MEME<br>HEALTH&nbsp;&nbsp;&nbsp;CENTER</div>
         <button id="start-game-button">
-            start healing journey
+            START JOURNEY
         </button>
+
     </div>
 
     <script>
