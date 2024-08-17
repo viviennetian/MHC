@@ -22,9 +22,15 @@
 
         @font-face {
             font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-            src: url('../fonts/ABCDiatypeSemi-MonoVariable-Trial.ttf') format('truetype');
+            src: url('../fonts/ABCDiatypeSemi-MonoVariable-Trial.woff2') format('woff2-variations'),
+                url('../fonts/ABCDiatypeSemi-MonoVariable-Trial.woff2') format('woff2'),
+                url('../fonts/ABCDiatypeSemi-MonoVariable-Trial.woff') format('woff'),
+                url('../fonts/ABCDiatypeSemi-MonoVariable-Trial.ttf') format('truetype-variations'),
+                url('../fonts/ABCDiatypeSemi-MonoVariable-Trial.ttf') format('truetype');
             font-weight: 100 900;
-            /* 支持的权重范围 */
+            /* 定义支持的字重范围 */
+            font-style: normal;
+            /* 定义字体样式 */
         }
     </style>
 
