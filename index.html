@@ -47,64 +47,58 @@
             /* 垂直居中 */
             flex-direction: column;
             /* 垂直排列元素 */
-            background-image: repeating-linear-gradient(to bottom,
-                    /* 方向从左到右 */
-                    #ff79e0 0,
-                    #ff79e0.15vh,
-                    transparent 0.2vh,
-                    transparent 20vh);
 
             background-size: 50px 50px;
-
         }
 
-        .perspective-background {
-            width: 200%;
-            height: 100%;
-            background-color: #fbffae;
-            /* 背景颜色，代表走廊的深色 */
-            background-image: repeating-linear-gradient(to right,
-                    /* 方向从左到右 */
-                    #ff79e0 0,
-                    #ff79e0.15vh,
-                    transparent 0.2vh,
-                    transparent 10vh);
-            background-size: 30px 30px;
-            /* 背景图案的大小 */
-            transform: perspective(1000px) rotateX(70deg) scaleY(0.7);
-            /* 添加透视和缩放 */
-            transform-origin: bottom;
-            /* 以底部为中心进行透视 */
-            overflow: hidden;
-            /* 确保背景不会超出容器 */
+        .border-line {
+            position: fixed;
+            background-color: red;
             z-index: -1;
-            position: absolute;
-            bottom: 0;
         }
 
-        .perspective-top {
-            position: absolute;
-            top: 0;
-            width: 200%;
-            height: 100%;
-            background-color: #fbffae;
-            /* 背景颜色，代表走廊的深色 */
-            background-image: repeating-linear-gradient(to right,
-                    /* 方向从左到右 */
-                    #ff79e0 0,
-                    #ff79e0.15vh,
-                    transparent 0.2vh,
-                    transparent 10vh);
-            background-size: 80vh 80vh;
-            /* 背景图案的大小 */
-            transform: perspective(1000px) rotateX(-70deg) scaleY(0.7);
-            /* 添加透视和缩放 */
-            transform-origin: top;
-            /* 以底部为中心进行透视 */
-            overflow: hidden;
-            /* 确保背景不会超出容器 */
-            z-index: -2;
+        /* 顶部直线 */
+        .top-line {
+            top: 16px;
+            width: calc(100%);
+            /* 减去左右的padding */
+            height: 2px;
+        }
 
+        /* 底部直线 */
+        .bottom-line {
+            bottom: 16px;
+            width: calc(100%);
+            /* 减去左右的padding */
+            height: 2px;
+        }
+
+        /* 左侧直线 */
+        .left-line {
+            left: 16px;
+            width: 2px;
+            height: calc(100%);
+            /* 减去上下的padding */
+        }
+
+        /* 右侧直线 */
+        .right-line {
+            right: 16px;
+            width: 2px;
+            height: calc(100%);
+            /* 减去上下的padding */
+        }
+
+        .chessboard {
+            z-index: -2;
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            width: calc(100% - 32px);
+            height: calc(100% - 32px);
+            background: url('../image/chessboard.svg') no-repeat center center;
+            background-size: cover;
+            /* 或者使用 contain 根据需求调整 */
         }
 
 
@@ -133,8 +127,30 @@
         }
 
         #start-container {
-            text-align: center;
+            z-index: 1;
+            /* 确保start-container在图片上层 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            padding: 0 8%;
+            /* 添加合适的左右内边距 */
+            box-sizing: border-box;
         }
+
+        #logo-container {
+            flex: 1;
+            text-align: left;
+            /* 左对齐logo */
+        }
+
+        #button-container {
+            flex: 1;
+            text-align: right;
+            /* 右对齐按钮 */
+        }
+
 
         @keyframes strokeColorChange {
             0% {
@@ -165,26 +181,28 @@
         }
 
         #mhc {
+            display: flex;
             align-items: center;
             font-family: "bricks";
-            color: #ffffff;
-            font-size: 120px;
+            color: #00ffff;
+            font-size: 100px;
+            text-align: center;
             text-shadow:
-                2px 2px 0 #000,
+                6px 6px 0 #ff0000,
                 /* 右下 */
-                -2px 2px 0 #000,
+                0px 0px 0 #000,
                 /* 左下 */
-                2px -2px 0 #000,
+                0px 0px 0 #000,
                 /* 右上 */
-                -2px -2px 0 #000;
+                0px 0px 0 #000;
             /* 左上 */
-            -webkit-text-stroke: 0.02em #ffff00;
+            -webkit-text-stroke: 0.01em #ffff00;
             /* text-shadow: 0px 0px 2px #000000; */
             animation: strokeColorChange 10s infinite;
             /* 动画时长6秒，循环播放 */
             /* filter: drop-shadow(10px 10px 0px #000000); */
-            letter-spacing: -0.2vw;
-            line-height: 20vh;
+
+            line-height: 14vh;
             /* 行距为24像素 */
 
 
@@ -197,58 +215,77 @@
         }
 
         #start-game-button {
-            position: absolute;
+            /* position: absolute;
             bottom: 0;
             left: 50%;
             /* 水平位置在页面的50% */
-            transform: translateX(-50%);
-            /* 将按钮的水平位置左移50%按钮的宽度，*/
+            /* transform: translateX(-50%); */
             font-family: 'bricks';
-            font-size: 100px;
+            font-size: 80px;
             font-weight: 500;
             color: #ffffff;
+            text-shadow:
+                4px 4px 0 #00ffff,
+                /* 右下 */
+                0px 0px 0 #000,
+                /* 左下 */
+                0px 0px 0 #000,
+                /* 右上 */
+                0px 0px 0 #000;
+            /* 左上 */
             -webkit-text-stroke: 0.015em #ef8382;
-
-
-            padding: 8vh 50vw;
             cursor: pointer;
             background: none;
             border: none;
             /* border: 1px solid #000000; */
-            opacity: 0;
             z-index: 2;
         }
 
         #start-game-button:hover {
             background: none;
-            color: #ffffff;
-            /* 鼠标悬停时的背景色 */
-            opacity: 0.85;
-            transition: all 0.6s ease-in-out 0.5s;
+            color: #ff0000;
+            transition: all 0.3s ease-in-out 0.1s;
             border: 1px #000000;
 
         }
+
+        #family-image {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            z-index: 0;
+            /* 确保图片在最底层 */
+        }
     </style>
+    <script>
+
+    </script>
+    </script>
 </head>
 
 <body>
-    <div class="perspective-background"></div>
-    <div class="perspective-top"></div>
-    <button id="about-button">about MHC</button>
-    <div id="start-container">
-        <div id="mhc">
-            MEME<br>HEALTH&nbsp;&nbsp;&nbsp;CENTER</div>
-        <button id="start-game-button">
-            START JOURNEY
-        </button>
+    <div class="chessboard"></div>
+    <div class="border-line top-line"></div>
+    <div class="border-line bottom-line"></div>
+    <div class="border-line left-line"></div>
+    <div class="border-line right-line"></div>
 
+    <!-- <div class="perspective-background"></div>
+    <div class="perspective-top"></div> -->
+    <!-- <button id="about-button">about MHC</button> -->
+    <img src="../image/family.png" id="family-image" alt="family Image">
+    <div id="start-container">
+        <div id="logo-container">
+            <div id="mhc">MEME<br>HEALTH<br>CENTER</div>
+        </div>
+        <div id="button-container">
+            <button id="start-game-button" class="clickable" data-href="00-start.html">START<br>JOURNEY</button>
+        </div>
     </div>
 
-    <script>
-        document.getElementById('start-game-button').addEventListener('click', function () {
-            window.location.href = '00-start.html'; // 跳转到游戏页面
-        });
-    </script>
+    <script src="sound/click-sound.js"></script>
 </body>
 
 </html>

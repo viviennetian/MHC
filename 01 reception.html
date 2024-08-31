@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Health Center-reception</title>
     <link rel="stylesheet" href="style.css"> <!-- 引入CSS样式 -->
-    <script src="game-logic.js" defer></script> <!-- 引入JavaScript文件 -->
+
 
     <style>
         /* 让 #reception 作为一个垂直方向的 flex 容器 */
@@ -15,6 +15,30 @@
             flex-direction: column;
             align-items: stretch;
 
+        }
+
+        .perspective-background {
+            width: 200%;
+            height: 100%;
+            background-color: #fbffae;
+            /* 背景颜色，代表走廊的深色 */
+            background-image: repeating-linear-gradient(to right,
+                    /* 方向从左到右 */
+                    #ff79e0 0,
+                    #ff79e0.15vh,
+                    transparent 0.2vh,
+                    transparent 10vh);
+            background-size: 30px 30px;
+            /* 背景图案的大小 */
+            transform: perspective(1000px) rotateX(70deg) scaleY(0.7);
+            /* 添加透视和缩放 */
+            transform-origin: bottom;
+            /* 以底部为中心进行透视 */
+            overflow: hidden;
+            /* 确保背景不会超出容器 */
+            z-index: -1;
+            position: absolute;
+            bottom: 0;
         }
 
         /* 确保这些元素在垂直方向上各占一行 */
@@ -102,9 +126,12 @@
                 </p>
             </div>
             <input id='question1' value=''>
-            <button class="choice" id="answerButton">Answer</button>
+            <button class="choice" id="answerButton" class="clickable">Answer</button>
         </div>
+
     </div>
+    <script src="game-logic.js" defer></script> <!-- 引入JavaScript文件 -->
+    <script src="sound/click-sound.js"></script>
 </body>
 
 </html>

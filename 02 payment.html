@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Health Center-reception</title>
     <link rel="stylesheet" href="style.css"> <!-- 引入CSS样式 -->
-    <script src="game-logic.js" defer></script> <!-- 引入JavaScript文件 -->
     <style>
         #text,
         #pay1,
@@ -48,7 +47,10 @@
     recorded in
     your credit file.
     <input id="pay1" type="number" value="" />
-    <button class="choice" id="payButton">pay</button>
+    <button class="choice" id="payButton" class="clickable">pay</button>
+
+    <script src="game-logic.js" defer></script> <!-- 引入JavaScript文件 -->
+    <script src="sound/click-sound.js"></script>
 </body>
 
 </html>

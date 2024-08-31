@@ -34,9 +34,6 @@
         }
     </style>
 
-    <script>
-
-    </script>
 </head>
 
 <body>
@@ -51,9 +48,9 @@
     <div id="right-corner">
         <div id="diseasesTips"></div>
         <div id="wallet">wallet: <span id="money">1000</span></div>
-        <button id="medical-records-button">medical Records</button>
-        <button id="new-game-button">restart</button>
-        <button id="front-page-button">front page</button>
+        <button id="medical-records-button" class="clickable">medical Records</button>
+        <button id="new-game-button" class="clickable">restart</button>
+        <button id="front-page-button" class="clickable" data-href="index.html">front page</button>
     </div>
 
 
@@ -65,7 +62,7 @@
         病例本
     -->
     <div id="medical-records-container" class="modal">
-        <button id="close-button">back to MHC</button>
+        <button id="close-button" class="clickable">back to MHC</button>
         <div id="medical-records-header">medical records</div>
         <div id="current-treatment">
             <div id=“header1” style="
@@ -95,6 +92,7 @@
     <script src="diseases.js"></script>
     <script src="game-logic.js"></script>
     <!-- <script src="script.js"></script> -->
+    <script src="sound/click-sound.js"></script>
 </body>
 
 </html>
