@@ -40,15 +40,46 @@
         #payButton:hover {
             background-color: #cdfcff;
         }
+
+
+        #regi-back1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -10;
+            width: 100%;
+            height: auto;
+        }
+
+        #office-b {
+            position: absolute;
+            bottom: 10vh;
+            left: 36%;
+            z-index: -8;
+            width: 160px;
+            height: auto;
+        }
+
+        #payment {
+            position: absolute;
+            bottom: 6vh;
+            right: 0;
+            z-index: -8;
+            width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 
 <body>
+    <img src="../image/regi-back1.svg" alt="regi-back1" id="regi-back1">
+    <img src="../image/office-b.svg" alt="office-b" id="office-b">
+    <img src="../image/payment.svg" alt="payment" id="payment">
     <br id="text">This is Payment counter. Please enter how much you'd like to pay us. Remember, your actions will be
     recorded in
     your credit file.
     <input id="pay1" type="number" value="" />
-    <button class="choice" id="payButton" class="clickable">pay</button>
+    <button class="choice clickable" id="payButton">pay</button>
 
     <script src="game-logic.js" defer></script> <!-- 引入JavaScript文件 -->
     <script src="sound/click-sound.js"></script>

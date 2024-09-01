@@ -47,6 +47,47 @@
 
     <button class="choice" id="goButton">go</button>
 
+
+    <script>
+        // 房间数据，存储图片和对话内容
+        const chatRooms = {
+            "Cardiology": {
+                character: "character1.png",
+                dialog: "Welcome to the Cardiology department."
+            },
+            "Neurology": {
+                character: "character2.png",
+                dialog: "Welcome to the Neurology department."
+            },
+            // 添加其他部门
+        };
+
+        // 动态加载内容的逻辑
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentDepartment = window.currentDepartment || { department: "Unknown" }; // 假设 currentDepartment 是全局变量
+            const room = chatRooms[currentDepartment.department];
+
+            if (room) {
+                const characterImg = document.getElementById("character-img");
+                const dialogText = document.getElementById("dialog-text");
+
+                // 设置图片和对话内容
+                characterImg.src = `path/to/images/${room.character}`;
+                dialogText.innerText = room.dialog;
+
+                // 显示当前科室名称
+                const depDiv = document.getElementById("diagnosis-department");
+                depDiv.innerHTML = currentDepartment.department;
+            } else {
+                console.error('Room information not found for department:', currentDepartment.department);
+            }
+
+            // 为 go 按钮添加点击事件处理程序
+            const button = document.getElementById("goButton");
+            button.onclick = () => chatRoomActionDo(); // 绑定按钮点击事件
+        });
+    </script>
+
 </body>
 
 </html>

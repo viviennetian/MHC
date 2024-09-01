@@ -222,6 +222,7 @@ function proceedToStartActionDo() {
     }
 }
 
+//付钱行为
 function pay1ActionDo() {
     const pay1 = document.getElementById("pay1");
     if (pay1.value != '') {
@@ -240,7 +241,7 @@ function getDiseasesDepartment() {
     }
     return department;
 }
-
+//加载电梯页面
 function proceedToTriage() {
     const choicesDiv = document.getElementById("choices");
 
@@ -289,7 +290,7 @@ function processDiagnosis() {
         return;
     }
     console.log(currentDepartment);
-    const found = patientDiseases.find(item => item.department === currentDepartment['department']);
+    const found = patientDiseases.find(item => item.department === currentDepartment['department']);//这一行代码是核心逻辑，它通过 find 方法在 patientDiseases 列表中查找与当前科室（currentDepartment['department']）匹配的疾病项。如果找到匹配项，则将其存储在 found 变量中；否则，found 为 undefined。
     if (found) {
         medicalRecords = medicalRecords.filter(record => record.status !== 'under treatment');
         const record = {

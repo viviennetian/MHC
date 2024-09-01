@@ -17,8 +17,9 @@ body {
 
 .border-line {
     position: fixed;
+    position: absolute;
     background-color: red;
-    z-index: -1;
+    z-index: 200;
 }
 
 /* 顶部直线 */

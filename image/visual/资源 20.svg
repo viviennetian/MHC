@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_图层_2" data-name="图层_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 891.93 746.75">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #efdf16;
+        stroke: red;
+        stroke-miterlimit: 10;
+        stroke-width: .25px;
+      }
+    </style>
+  </defs>
+  <g id="_图层_1-2" data-name="图层_1">
+    <g>
+      <g>
+        <ellipse class="cls-1" cx="567.12" cy="150.12" rx="78" ry="45"/>
+        <ellipse class="cls-1" cx="567.12" cy="150.12" rx="72" ry="41.54"/>
+        <ellipse class="cls-1" cx="567.12" cy="150.12" rx="66" ry="38.08"/>
+        <ellipse class="cls-1" cx="567.12" cy="150.13" rx="60" ry="34.62"/>
+        <ellipse class="cls-1" cx="567.12" cy="150.12" rx="54" ry="31.15"/>
+        <ellipse class="cls-1" cx="567.12" cy="150.12" rx="48" ry="27.69"/>
+        <ellipse class="cls-1" cx="567.12" cy="150.12" rx="42" ry="24.23"/>
+        <ellipse class="cls-1" cx="567.12" cy="150.12" rx="36" ry="20.77"/>
+        <ellipse class="cls-1" cx="567.12" cy="150.12" rx="30" ry="17.31"/>
+        <ellipse class="cls-1" cx="567.12" cy="150.12" rx="24" ry="13.85"/>
+        <ellipse class="cls-1" cx="567.12" cy="150.13" rx="18" ry="10.38"/>
+        <ellipse class="cls-1" cx="567.12" cy="150.12" rx="12" ry="6.92"/>
+      </g>
+      <g>
+        <ellipse class="cls-1" cx="78.12" cy="185.12" rx="78" ry="45"/>
+        <ellipse class="cls-1" cx="78.12" cy="185.12" rx="72" ry="41.54"/>
+        <ellipse class="cls-1" cx="78.12" cy="185.12" rx="66" ry="38.08"/>
+        <ellipse class="cls-1" cx="78.13" cy="185.12" rx="60" ry="34.62"/>
+        <ellipse class="cls-1" cx="78.12" cy="185.12" rx="54" ry="31.15"/>
+        <ellipse class="cls-1" cx="78.12" cy="185.12" rx="48" ry="27.69"/>
+        <ellipse class="cls-1" cx="78.12" cy="185.12" rx="42" ry="24.23"/>
+        <ellipse class="cls-1" cx="78.12" cy="185.12" rx="36" ry="20.77"/>
+        <ellipse class="cls-1" cx="78.12" cy="185.12" rx="30" ry="17.31"/>
+        <ellipse class="cls-1" cx="78.13" cy="185.12" rx="24" ry="13.85"/>
+        <ellipse class="cls-1" cx="78.12" cy="185.13" rx="18" ry="10.38"/>
+        <ellipse class="cls-1" cx="78.12" cy="185.12" rx="12" ry="6.92"/>
+      </g>
+      <rect class="cls-1" x="75.12" y=".12" width="7" height="185"/>
+      <rect class="cls-1" x="564.12" y=".12" width="7" height="151"/>
+      <g>
+        <ellipse class="cls-1" cx="338.24" cy="595.72" rx="78" ry="45"/>
+        <ellipse class="cls-1" cx="338.24" cy="595.72" rx="72" ry="41.54"/>
+        <ellipse class="cls-1" cx="338.24" cy="595.72" rx="66" ry="38.08"/>
+        <ellipse class="cls-1" cx="338.24" cy="595.72" rx="60" ry="34.62"/>
+        <ellipse class="cls-1" cx="338.24" cy="595.72" rx="54" ry="31.15"/>
+        <ellipse class="cls-1" cx="338.24" cy="595.72" rx="48" ry="27.69"/>
+        <ellipse class="cls-1" cx="338.24" cy="595.72" rx="42" ry="24.23"/>
+        <ellipse class="cls-1" cx="338.24" cy="595.72" rx="36" ry="20.77"/>
+        <ellipse class="cls-1" cx="338.24" cy="595.72" rx="30" ry="17.31"/>
+        <ellipse class="cls-1" cx="338.24" cy="595.72" rx="24" ry="13.85"/>
+        <ellipse class="cls-1" cx="338.24" cy="595.72" rx="18" ry="10.38"/>
+        <ellipse class="cls-1" cx="338.24" cy="595.72" rx="12" ry="6.92"/>
+      </g>
+      <rect class="cls-1" x="334.24" y="594.72" width="7" height="151" transform="translate(675.48 1340.45) rotate(180)"/>
+      <g>
+        <ellipse class="cls-1" cx="677.81" cy="484.03" rx="45" ry="78"/>
+        <ellipse class="cls-1" cx="677.81" cy="484.03" rx="41.54" ry="72"/>
+        <ellipse class="cls-1" cx="677.81" cy="484.03" rx="38.08" ry="66"/>
+        <ellipse class="cls-1" cx="677.81" cy="484.03" rx="34.62" ry="60"/>
+        <ellipse class="cls-1" cx="677.81" cy="484.03" rx="31.15" ry="54"/>
+        <ellipse class="cls-1" cx="677.81" cy="484.03" rx="27.69" ry="48"/>
+        <ellipse class="cls-1" cx="677.81" cy="484.03" rx="24.23" ry="42"/>
+        <ellipse class="cls-1" cx="677.81" cy="484.03" rx="20.77" ry="36"/>
+        <ellipse class="cls-1" cx="677.81" cy="484.03" rx="17.31" ry="30"/>
+        <ellipse class="cls-1" cx="677.81" cy="484.03" rx="13.85" ry="24"/>
+        <ellipse class="cls-1" cx="677.81" cy="484.03" rx="10.38" ry="18"/>
+        <ellipse class="cls-1" cx="677.81" cy="484.03" rx="6.92" ry="12"/>
+      </g>
+      <rect class="cls-1" x="781.31" y="376.53" width="7" height="214" transform="translate(1268.33 -301.28) rotate(90)"/>
+      <g>
+        <ellipse class="cls-1" cx="163.63" cy="468.62" rx="78" ry="45"/>
+        <ellipse class="cls-1" cx="163.63" cy="468.62" rx="72" ry="41.54"/>
+        <ellipse class="cls-1" cx="163.63" cy="468.62" rx="66" ry="38.08"/>
+        <ellipse class="cls-1" cx="163.63" cy="468.62" rx="60" ry="34.62"/>
+        <ellipse class="cls-1" cx="163.63" cy="468.62" rx="54" ry="31.15"/>
+        <ellipse class="cls-1" cx="163.63" cy="468.62" rx="48" ry="27.69"/>
+        <ellipse class="cls-1" cx="163.63" cy="468.62" rx="42" ry="24.23"/>
+        <ellipse class="cls-1" cx="163.63" cy="468.62" rx="36" ry="20.77"/>
+        <ellipse class="cls-1" cx="163.63" cy="468.62" rx="30" ry="17.31"/>
+        <ellipse class="cls-1" cx="163.63" cy="468.62" rx="24" ry="13.85"/>
+        <ellipse class="cls-1" cx="163.63" cy="468.62" rx="18" ry="10.38"/>
+        <ellipse class="cls-1" cx="163.63" cy="468.62" rx="12" ry="6.92"/>
+      </g>
+      <rect class="cls-1" x="159.62" y="469.12" width="7.5" height="277.5" transform="translate(326.75 1215.75) rotate(-180)"/>
+      <g>
+        <ellipse class="cls-1" cx="404.12" cy="322.12" rx="78" ry="45"/>
+        <ellipse class="cls-1" cx="404.12" cy="322.12" rx="72" ry="41.54"/>
+        <ellipse class="cls-1" cx="404.12" cy="322.12" rx="66" ry="38.08"/>
+        <ellipse class="cls-1" cx="404.12" cy="322.12" rx="60" ry="34.62"/>
+        <ellipse class="cls-1" cx="404.12" cy="322.12" rx="54" ry="31.15"/>
+        <ellipse class="cls-1" cx="404.12" cy="322.12" rx="48" ry="27.69"/>
+        <ellipse class="cls-1" cx="404.12" cy="322.12" rx="42" ry="24.23"/>
+        <ellipse class="cls-1" cx="404.12" cy="322.12" rx="36" ry="20.77"/>
+        <ellipse class="cls-1" cx="404.12" cy="322.12" rx="30" ry="17.31"/>
+        <ellipse class="cls-1" cx="404.13" cy="322.12" rx="24" ry="13.85"/>
+        <ellipse class="cls-1" cx="404.12" cy="322.13" rx="18" ry="10.38"/>
+        <ellipse class="cls-1" cx="404.12" cy="322.12" rx="12" ry="6.92"/>
+      </g>
+      <rect class="cls-1" x="401.12" y=".12" width="7" height="323"/>
+    </g>
+  </g>
+</svg>
