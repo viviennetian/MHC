@@ -12,18 +12,79 @@ body {
 
     display: flex;
     align-items: flex-start;
-    /* 确保子元素靠左对齐 */
 }
+
+
+.border-line {
+    position: fixed;
+    background-color: red;
+    z-index: -1;
+}
+
+/* 顶部直线 */
+.top-line {
+    top: 16px;
+    width: calc(100%);
+    /* 减去左右的padding */
+    height: 2px;
+}
+
+/* 底部直线 */
+.bottom-line {
+    bottom: 16px;
+    width: calc(100%);
+    /* 减去左右的padding */
+    height: 2px;
+}
+
+/* 左侧直线 */
+.left-line {
+    left: 16px;
+    width: 2px;
+    height: calc(100%);
+    /* 减去上下的padding */
+}
+
+/* 右侧直线 */
+.right-line {
+    right: 16px;
+    width: 2px;
+    height: calc(100%);
+    /* 减去上下的padding */
+}
+
+.chessboard {
+    z-index: -2;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: calc(100% - 32px);
+    height: calc(100% - 32px);
+    background: url('../image/chessboard.svg') no-repeat center center;
+    background-size: cover;
+    /* 或者使用 contain 根据需求调整 */
+}
+
 
 
 #gamecontainer {
-    /* border: 2px solid #4CAF50; */
-    margin: 20px;
+    display: flex;
+    z-index: 0;
+    justify-content: center;
+    /* 水平居中 */
+    align-items: center;
+    /* 垂直居中 */
+    width: calc(100% - 32px);
+    /* 宽度减去左右的16px */
+    height: calc(100% - 32px);
+    /* 高度减去上下的16px */
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    box-sizing: border-box;
+    /* 确保padding和border包含在width和height中 */
 }
 
-#story-text {
-    margin: 0;
-}
 
 #choices {
     /* border: 2px solid #4CAF50; */
@@ -35,34 +96,75 @@ body {
     z-index: 20;
 }
 
+#left-upper-corner {
+    z-index: 10;
+    display: fixed;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+}
 
-#wallet {
-    margin-bottom: 10px;
-    border: 2px solid #af4c96;
-    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-    font-size: 20px;
+#thisis {
+    position: relative;
+    padding: 4px 10px;
+    font-family: 'ABC Diatype Mono Variable Unlicensed Trial';
+    -webkit-text-stroke: #ff0000 0.25px;
+    font-size: 22px;
     font-weight: 300;
 }
 
+#wallet {
+    display: fixed;
+    position: relative;
+    margin-top: 10px;
+    width: 100px;
+    background-color: #fdf9becb;
+    border: 2px solid #ff0000;
+    padding: 4px 10px;
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    font-size: 16px;
+    -webkit-text-stroke: #ff0000 0.25px;
+    font-weight: 300;
+}
 
-#right-corner {
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    padding: 10px;
-    /* background-color: #007bff; */
+#diseasesTips {
+    display: fixed;
+    position: relative;
+    padding: 4px 10px;
+    background-color: #fdf9becb;
+    border: 2px solid #ff0000;
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    -webkit-text-stroke: #ff0000 0.25px;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+#story-text {
+    background-color: white;
+    margin: 0;
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    font-size: 16px;
+}
+
+#right-upper-corner {
+    z-index: 20;
+    display: fixed;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    -webkit-text-stroke: #ff0000 0.25px;
 
 }
 
 #new-game-button {
     display: fixed;
-    bottom: 0px;
-    left: 0px;
-    padding: 30px;
-    background-color: rgba(222, 187, 187, 0);
-    border: 2px solid #4CAF50;
+    padding: 4px 10px;
+    margin-left: 10px;
+    width: auto;
+    background-color: white;
+    border: 2px solid #ff0000;
     font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 300;
 }
 
@@ -73,13 +175,14 @@ body {
 
 #front-page-button {
     display: fixed;
+    width: 140px;
     bottom: 0px;
     left: 0px;
-    padding: 30px;
-    background-color: rgba(222, 187, 187, 0);
-    border: 2px solid #4CAF50;
+    padding: 4px;
+    background-color: white;
+    border: 2px solid #ff0000;
     font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 300;
 }
 
@@ -89,57 +192,48 @@ body {
 }
 
 #medical-records-button {
-    display: fixed;
-    bottom: 10px;
-    left: 10px;
-    padding: 30px;
-
-
-    background-color: rgba(222, 187, 187, 0);
-    border: 2px solid #4CAF50;
+    z-index: 20;
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    padding: 0;
+    /* 移除内部边距，防止影响图片显示 */
+    width: 120px;
+    /* 设置合适的按钮宽度 */
+    height: 80px;
+    /* 设置合适的按钮高度 */
+    background-color: transparent;
+    /* 确保背景透明 */
+    border: none;
+    /* 移除边框 */
     cursor: pointer;
-    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-    font-size: 20px;
-    font-weight: 300;
+    background-image: url('../image/record-button-default.svg');
+    /* 默认背景 */
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 #medical-records-button:hover {
-    background-color: #cdfcff;
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    padding: 0;
+    /* 移除内部边距，防止影响图片显示 */
+    width: 120px;
+    /* 设置合适的按钮宽度 */
+    height: 80px;
+    /* 设置合适的按钮高度 */
+    background-color: transparent;
+    /* 确保背景透明 */
+    background-image: url('../image/record-button-hover.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: background-image 0.3s ease;
+    /* 添加平滑过渡 */
 }
 
-
-#medical-records-container {
-
-    width: 100vw;
-    height: 100vh;
-    background-color: #fef1ff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-
-}
-
-#medical-records-header {
-    display: flex;
-    padding: 20px;
-    margin-bottom: 80px;
-    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-    font-size: 70px;
-    font-weight: 600;
-
-}
-
-#current-treatment-records,
-#history-treatment-records {
-    border: 2px solid #4CAF50;
-    margin: 20px;
-    margin-top: 0px;
-    margin-bottom: 80px;
-    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-    font-size: 16px;
-    font-weight: 200;
-}
 
 
 .modal {
@@ -151,9 +245,74 @@ body {
     /* 置于顶层 */
     left: 0;
     top: 0;
-    overflow: auto;
+    overflow: none;
     /* 如果需要滚动条 */
 }
+
+#medical-records-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #fafdb9;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#thisIsRecordBook {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 4px 10px;
+    font-family: 'ABC Diatype Mono Variable Unlicensed Trial';
+    -webkit-text-stroke: #ff0000 0.25px;
+    font-size: 22px;
+    font-weight: 300;
+
+}
+
+#book-container {
+    display: flex;
+    background-color: #FFFFDC;
+    border: #ff0000 1px solid;
+    width: 1200px;
+    height: 600px;
+    flex-direction: row;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#current-treatment-container,
+#history-records-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    background-color: #FFFFDC;
+    border: #ff0000 1px solid;
+    width: auto;
+}
+
+#under-treatment-subheader,
+#history-subheader {
+    font-family: 'ABC Diatype Mono Variable Unlicensed Trial';
+    font-weight: 300;
+    font-size: 20px;
+    margin: 20px;
+}
+
+#current-treatment-text,
+#history-treatment-text {
+
+    border: none;
+    margin: 20px;
+    margin-top: 0px;
+    margin-bottom: 80px;
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    font-size: 16px;
+    font-weight: 200;
+}
+
+
 
 .no-records {
     font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
@@ -164,10 +323,10 @@ body {
 #close-button {
     display: flex;
     position: absolute;
-    top: 10px;
-    right: 20px;
-    background-color: rgba(222, 187, 187, 0);
-    border: 2px solid #4CAF50;
+    left: 16px;
+    bottom: 16px;
+    background-color: white;
+    border: 2px solid #ff0000;
     cursor: pointer;
     font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
     font-size: 20px;

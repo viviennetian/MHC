@@ -6,37 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Health</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="font.css"> <!-- 引入 fonts.css -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-    <style>
-        @font-face {
-            font-family: 'bricks';
-            src: url('fonts/bricksVF.ttf') format('truetype');
-        }
-
-        @font-face {
-            font-family: 'source sans';
-            src: url('fonts/SourceHanSansSC-VF.otf') format('opentype');
-        }
-
-        @font-face {
-            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-            src: url('../fonts/ABCDiatypeSemi-MonoVariable-Trial.woff2') format('woff2-variations'),
-                url('../fonts/ABCDiatypeSemi-MonoVariable-Trial.woff2') format('woff2'),
-                url('../fonts/ABCDiatypeSemi-MonoVariable-Trial.woff') format('woff'),
-                url('../fonts/ABCDiatypeSemi-MonoVariable-Trial.ttf') format('truetype-variations'),
-                url('../fonts/ABCDiatypeSemi-MonoVariable-Trial.ttf') format('truetype');
-            font-weight: 100 900;
-            /* 定义支持的字重范围 */
-            font-style: normal;
-            /* 定义字体样式 */
-        }
-    </style>
 
 </head>
 
 <body>
+    <div class="chessboard"></div>
+    <div class="border-line top-line"></div>
+    <div class="border-line bottom-line"></div>
+    <div class="border-line left-line"></div>
+    <div class="border-line right-line"></div>
+
+    <div id="left-upper-corner">
+        <div id="thisis">REGISTRATION</div>
+        <div id="diseasesTips"></div>
+        <div id="wallet">wallet: <span id="money">1000</span></div>
+    </div>
+
+    <div id="right-upper-corner">
+        <button id="front-page-button" class="clickable" data-href="index.html">front page</button>
+        <button id="new-game-button" class="clickable">restart</button>
+
+
+    </div>
+    <button id="medical-records-button" class="clickable"></button>
+
+
+
     <div id="gamecontainer">
         <div id="story-text"></div>
         <div id="choices">
@@ -45,54 +44,39 @@
     -->
         </div>
     </div>
-    <div id="right-corner">
-        <div id="diseasesTips"></div>
-        <div id="wallet">wallet: <span id="money">1000</span></div>
-        <button id="medical-records-button" class="clickable">medical Records</button>
-        <button id="new-game-button" class="clickable">restart</button>
-        <button id="front-page-button" class="clickable" data-href="index.html">front page</button>
-    </div>
-
-
-
-
-
-
     <!--
         病例本
     -->
     <div id="medical-records-container" class="modal">
+        <div class="chessboard"></div>
+        <div class="border-line top-line"></div>
+        <div class="border-line bottom-line"></div>
+        <div class="border-line left-line"></div>
+        <div class="border-line right-line"></div>
+
         <button id="close-button" class="clickable">back to MHC</button>
-        <div id="medical-records-header">medical records</div>
-        <div id="current-treatment">
-            <div id=“header1” style="
-                font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial', monospace; 
-                font-weight: 500; 
-                font-size: 30px;
-                margin:0px;
-                margin-left:20px;
-                ">
-                under treatment
+
+        <div id="thisIsRecordBook">medical records</div>
+
+        <div id="book-container">
+            <div id="current-treatment-container">
+                <div id="under-treatment-subheader">under treatment</div>
+                <div id="current-treatment-text"></div>
             </div>
-            <div id="current-treatment-records"></div>
+
+            <div id="history-records-container">
+                <div id="history-subheader">history</div>
+                <div id="history-treatment-text"></div>
+            </div>
         </div>
-        <div id="history-records">
-            <div id=“header1” style="
-            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial', monospace; 
-            font-weight: 500; 
-            font-size: 30px;
-            margin:0px;
-            margin-left:20px;
-            ">
-                history</div>
-            <div id="history-treatment-records"></div>
-        </div>
+
     </div>
 
     <script src="diseases.js"></script>
     <script src="game-logic.js"></script>
     <!-- <script src="script.js"></script> -->
     <script src="sound/click-sound.js"></script>
+    <script src="typewriter.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Test</title>
+</head>
+
+<body>
+    <div id="typing-text" data-text="Hello, this is a test!"></div>
+
+    <script>
+        console.log('Script loaded');  // 确保脚本已加载
+
+        let isTyping = false;
+
+        document.addEventListener('click', function () {
+            console.log('Document clicked');
+
+            if (!isTyping) {
+                isTyping = true;
+                const element = document.getElementById('typing-text');
+                const text = element.getAttribute('data-text');
+                const speed = 100;
+                element.style.visibility = 'visible';
+                typeWriter(element, text, speed);
+            }
+        });
+
+        function typeWriter(element, text, speed) {
+            console.log('typeWriter function called');
+            let i = 0;
+
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+
+            type();
+        }
+    </script>
+</body>
+
+</html>

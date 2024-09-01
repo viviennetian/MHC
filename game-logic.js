@@ -570,8 +570,8 @@ function generateRandomDiseases() {
  */
 function loadMedicalRecords() {
     const medicalRecords = JSON.parse(localStorage.getItem('medicalRecords')) || [];
-    const currentTreatmentRecordsDiv = document.getElementById('current-treatment-records');
-    const historyTreatmentRecordsDiv = document.getElementById('history-treatment-records');
+    const currentTreatmentRecordsDiv = document.getElementById('current-treatment-text');
+    const historyTreatmentRecordsDiv = document.getElementById('history-treatment-text');
 
     const currentTreatmentRecords = medicalRecords.filter(record => record.status === 'under treatment');
     const historyRecords = medicalRecords.filter(record => record.status === 'history');
