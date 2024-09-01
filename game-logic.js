@@ -189,8 +189,11 @@ function proceedToStartActionDo() {
     const question1 = document.getElementById('question1');
     const diseasesTips = document.getElementById('diseasesTips');
     const choicesDiv = document.getElementById("choices");
+    const thisIs = document.getElementById('thisis');
+    thisIs.innerHTML = "PAYMENT ROOM";
     choicesDiv.innerHTML = "";
     diseasesTips.innerHTML = "";
+
     if (question1.value !== '') {
         console.log(patientDiseases);
         //clear under treatment的病例
@@ -206,6 +209,7 @@ function proceedToStartActionDo() {
         medicalRecords.push(record);
         saveGameState(); // 保存游戏状态和病历本
         diseasesTips.innerHTML = "The triage desk recommends you go to:" + getDiseasesDepartment();
+
         //替换现在界面
         // 加载 payment.html 并替换内容
         fetch('02 payment.html')
@@ -243,6 +247,8 @@ function getDiseasesDepartment() {
 }
 //加载电梯页面
 function proceedToTriage() {
+    const thisIs = document.getElementById('thisis');
+    thisIs.innerHTML = "ELEVATOR ROOM";
     const choicesDiv = document.getElementById("choices");
 
     // 加载 elevator.html 文件的内容
@@ -283,6 +289,7 @@ function proceedToTriageActionDo(department) {
 
 
 //医生房间，诊断部分
+//在这里需要补充改变choice的css的显示空间大小。
 function processDiagnosis() {
     console.log("Proceeding to diagnosis...");
     if (patientDiseases.length === 0) {
@@ -290,8 +297,18 @@ function processDiagnosis() {
         return;
     }
     console.log(currentDepartment);
+    const thisIs = document.getElementById('thisis');
+    thisIs.innerHTML = currentDepartment['department'];
+
     const found = patientDiseases.find(item => item.department === currentDepartment['department']);//这一行代码是核心逻辑，它通过 find 方法在 patientDiseases 列表中查找与当前科室（currentDepartment['department']）匹配的疾病项。如果找到匹配项，则将其存储在 found 变量中；否则，found 为 undefined。
     if (found) {
+        // 如果找到了匹配的疾病，将 isCorrect 设置为 true，并存储疾病信息
+        window.isCorrect = true;
+        window.currentDisease = found;
+        // 记录找到的疾病和当前部门
+        console.log('Found disease:', found);
+        console.log('Current department:', currentDepartment);
+
         medicalRecords = medicalRecords.filter(record => record.status !== 'under treatment');
         const record = {
             status: 'under treatment',
@@ -305,134 +322,161 @@ function processDiagnosis() {
         flag = true;
     } else {
         flag = false;
+        // 如果没有找到匹配的疾病，将 isCorrect 设置为 false
+        window.isCorrect = false;
+        window.currentDisease = null;  // 如果没有找到疾病，currentDisease 设置为 null
+        console.log('No matching disease found.');
     }
-
-    const choicesDiv = document.getElementById("choices");
-
     // 加载 chatRoom.html 文件的内容
-    fetch('04 chatRoom.html')
-        .then(response => response.text())
+    fetch('./04 chatRoom.html')  // 确保路径和文件名正确
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+        })
         .then(html => {
-            // 将 chatRoom.html 的内容插入到 choicesDiv 中
+            const choicesDiv = document.getElementById("choices");
             choicesDiv.innerHTML = html;
-
-            // 显示当前科室名称
-            const depDiv = document.getElementById("diagnosis-department");
-            depDiv.innerHTML = currentDepartment['department'];
-
-            // 为 go 按钮添加点击事件处理程序
-            const button = document.getElementById("goButton");
-            button.onclick = () => chatRoomActionDo();
+            console.log('Loaded chatRoom.html successfully.');
+            // console.log("Before calling initializeChatRoom:", currentDepartment);
+            initializeChatRoom();
         });
 }
 
+// 初始化 chatRoom.html 相关的逻辑
+function initializeChatRoom() {
+    // console.log('initializeChatRoom is loading');
+    console.log("Inside initializeChatRoom, currentDepartment:", currentDepartment);
+
+    const room = chatRooms[currentDepartment.department]; // 选择的科室对应的房间数据
+
+    if (room) {
+        const scene = isCorrect ? room.correct : room.wrong; // 选择正确或错误的房间数据
+
+        // 动态加载背景图像
+        const backgroundContainer = document.getElementById("background-container");
+        backgroundContainer.innerHTML = ""; // 清空之前的内容
+        scene.background.forEach(bg => {
+            const bgElement = document.createElement("img");
+            bgElement.src = `../image/${bg}`;
+            // console.log('Loading background image from:', bgElement.src);
+            bgElement.classList.add("background-img");
+            bgElement.onerror = () => console.error(`Failed to load background image: ${bgElement.src}`);
+            backgroundContainer.appendChild(bgElement);
+        });
+
+        // 动态加载角色图像
+        const characterContainer = document.getElementById("character-container");
+        characterContainer.innerHTML = ""; // 清空之前的内容
+        scene.character.forEach(character => {
+            const imgElement = document.createElement("img");
+            imgElement.src = `../image/${character}`;
+            // console.log('Loading character image from:', imgElement.src);
+            imgElement.classList.add("character-img");
+            // imgElement.onload = () => console.log('Character image loaded successfully:', imgElement.src);
+            imgElement.onerror = () => console.error(`Failed to load character image: ${imgElement.src}`);
+            characterContainer.appendChild(imgElement);
+            // console.log('Character image appended to container:', imgElement);
+        });
+        // 动态加载前景图像
+        const frontgroundContainer = document.getElementById("frontground-container");
+        frontgroundContainer.innerHTML = ""; // 清空之前的内容
+        if (scene.frontground && Array.isArray(scene.frontground) && scene.frontground.length > 0) {
+            scene.frontground.forEach(fg => {
+                const fgElement = document.createElement("img");
+                fgElement.src = `../image/${fg}`;
+                // console.log('Loading frontground image from:', fgElement.src);
+                fgElement.classList.add("frontground-img");
+                fgElement.onerror = () => console.error(`Failed to load frontground image: ${fgElement.src}`);
+                frontgroundContainer.appendChild(fgElement);
+            });
+        } else {
+            console.log('No frontground data available, skipping frontground loading.');
+        }
+
+        // 显示多个对话段落
+        let currentDialogIndex = 0;
+        const dialogText = document.getElementById("dialog-text");
+        dialogText.innerText = scene.dialogs[currentDialogIndex];
+
+        function showNextDialog() {
+            console.log('showNextDialog called');
+            currentDialogIndex++;//每调用一次这个函数，currentDialogIndex 的值就会增加1，指向下一个对话段落。
+            if (currentDialogIndex < scene.dialogs.length) {
+                dialogText.innerText = scene.dialogs[currentDialogIndex];//检查 currentDialogIndex 是否小于 scene.dialogs 的总长度。如果是，则更新 dialogText 的内容为下一段对话。
+            } else if (scene.treatmentStep) {
+                currentDepartment.disease.forEach(disease => {
+                    const treatmentOptions = disease.treatments;
+                    // 处理每个 treatmentOptions
+                    console.log('Treatment options:', treatmentOptions);
+                    loadTreatmentOptions(treatmentOptions);//对话完了加载治疗方案
+                });
+
+            } else {
+                document.getElementById("goButton").style.display = "block";
+            }
+        }
+
+        // 为下一步按钮绑定事件，用于切换到下一个对话段落
+        document.getElementById("nextButton").onclick = showNextDialog;
+
+        // 初始显示第一个对话段落
+        document.getElementById("nextButton").style.display = "block";
+    } else {
+        console.log('Current department name:', currentDepartment.department);
+        console.error('Room information not found for department:', currentDepartment.department);
+    }
+
+    document.getElementById("backButton").onclick = () => backToChoice();
+}
+
+//故事节点更新
 function chatRoomActionDo() {
     currentStoryNode = story.treatment;
     showStory(currentStoryNode)
 }
 
 
-function treatmentDo() {
-    let department = currentDepartment['department'];
-    const found = patientDiseases.find(item => item.department === department);
-
-    const choicesDiv = document.getElementById("choices");
-    choicesDiv.innerHTML = "";
-    if (found) {
-        console.log('department match');
-        // 加载 treatment.html 内容
-        fetch('05 treatment.html')
-            .then(response => response.text())
-            .then(html => {
-                choicesDiv.innerHTML = html;
-
-                // 更新病历本
-                console.log(found);
-                medicalRecords = medicalRecords.filter(record => record.status !== 'under treatment');
-                const record = {
-                    status: 'under treatment',
-                    department: department,
-                    disease: found.disease.name,
-                    symptoms: found.disease.symptoms,
-                    treatment: null,
-                    result: null
-                };
-                medicalRecords.push(record);
-
-                saveGameState(); // 保存游戏状态和病历本
-
-                // 绑定下一步按钮事件
-                const button = document.getElementById("nextButton");
-                button.onclick = () => showDisease(found);
-            });
-    } else {
-        // 加载 wrongRoom.html 内容
-        fetch('06 wrongRoom.html')
-            .then(response => response.text())
-            .then(html => {
-                choicesDiv.innerHTML = html;
-
-                // 绑定返回按钮事件
-                const button = document.getElementById("backButton");
-                button.onclick = () => backToChoice();
-            });
-    }
-}
-
-
-function backToChoice() {
-    currentStoryNode = story.triage;
-    showStory(currentStoryNode);
-}
-function showDisease(found) {
-    console.log(found['disease']);
-
-    const treatmentChoices = found['disease']['treatments'].map(treatment => {
-        return {
-            text: `$ ${treatment.method} - ${treatment.price}`,
-            next: "treatmentComplete",
-            treatment: treatment,// 这里的 treatment 对象包含了 method 属性
-            department: currentDepartment,
-            disease: found
-        };
-    });
-
+function loadTreatmentOptions(treatmentOptions) {
     const treatmentOptionsDiv = document.getElementById("treatment-options");
+    document.getElementById("treatment-options").style.display = "block"; // 显示治疗选项按钮
+    treatmentOptionsDiv.innerHTML = ""; // 清空已有的治疗选项
+    // 动态生成并添加治疗选项按钮
+    if (treatmentOptions && Array.isArray(treatmentOptions)) {
+        treatmentOptions.forEach(treatment => {
+            const button = document.createElement("button");
+            button.textContent = `$${treatment.method} - ${treatment.price}`;
+            button.onclick = function () {
+                console.log('Selected treatment:', treatment);
+                handleTreatmentChoice({
+                    treatment: treatment, // 传递治疗选项
+                    department: currentDepartment, // 传递当前科室信息
+                    disease: currentDepartment.disease // 传递当前疾病信息
+                });
+            };
+            treatmentOptionsDiv.appendChild(button);
+            console.log('Button added:', button.textContent); // 输出每个按钮的文本
+        });
 
-    if (!treatmentOptionsDiv) {
-        console.error("treatment-options container not found");
-        return;
+    } else {
+        console.error('Treatment options are undefined or not an array');
     }
 
-    // 清空已有的治疗选项按钮
-    treatmentOptionsDiv.innerHTML = "";
-
-    // 动态生成并添加治疗选项按钮
-    treatmentChoices.forEach(choice => {
-        const button = document.createElement('button');
-        button.className = 'treatment-choice';
-        button.textContent = choice.text;
-
-        // 绑定治疗选项按钮的点击事件
-        button.onclick = function () {
-            handleTreatmentChoice(choice);
-        };
-
-        treatmentOptionsDiv.appendChild(button);
-    });
+    // document.getElementById("nextButton").style.display = "block"; // 显示“Next”按钮
 }
-
 
 // 处理治疗选择的函数（示例）  
 function handleTreatmentChoice(choice) {
+    const selectedDisease = choice.disease[0]; // 使用第一个疾病对象
     console.log('Selected treatment:', choice.treatment.method, 'at', choice.treatment.price);
 
-
+    // 更新病历本
     const record = {
         status: '历史记录',
         department: choice.department.department,
-        disease: choice.disease.disease.name,
-        symptoms: choice.disease.disease.symptoms,
+        disease: selectedDisease.name, // 使用疾病的名字
+        symptoms: selectedDisease.symptoms, // 使用疾病的症状
         treatment: choice.treatment.method,
         result: choice.treatment.effect
     };
@@ -442,35 +486,7 @@ function handleTreatmentChoice(choice) {
     saveGameState(); // 保存游戏状态和病历本
 }
 
-
-
-
-function saveGameState() {
-    const gameState = {
-        patientDiseases,
-        currentStoryNode,
-        currentDepartment,
-        money,
-        medicalRecords // 保存病历本
-    };
-    localStorage.setItem('gameState', JSON.stringify(gameState));
-    localStorage.setItem('medicalRecords', JSON.stringify(medicalRecords)); // 保存病历本到 localStorage
-}
-
-function loadGameState() {
-    const gameState = JSON.parse(localStorage.getItem('gameState'));
-    if (gameState && gameState.currentStoryNode) {
-        patientDiseases = gameState.patientDiseases;
-        money = gameState.money;
-        currentStoryNode = gameState.currentStoryNode;
-        medicalRecords = gameState.medicalRecords || [];
-        showStory(currentStoryNode);
-    } else {
-        startGame(true);
-    }
-}
-
-
+//治疗选择之后的结果
 function treatmentComplete(choice) {
     console.log("Treatment complete with treatment:", choice);
 
@@ -516,6 +532,90 @@ function treatmentComplete(choice) {
     }
 }
 
+
+// function treatmentDo() {
+//     let department = currentDepartment['department'];
+//     const found = patientDiseases.find(item => item.department === department);
+
+//     const choicesDiv = document.getElementById("choices");
+//     choicesDiv.innerHTML = "";
+//     if (found) {
+//         console.log('department match');
+//         // 加载 treatment.html 内容
+//         fetch('05 treatment.html')
+//             .then(response => response.text())
+//             .then(html => {
+//                 choicesDiv.innerHTML = html;
+
+//                 // 更新病历本
+//                 console.log(found);
+//                 medicalRecords = medicalRecords.filter(record => record.status !== 'under treatment');
+//                 const record = {
+//                     status: 'under treatment',
+//                     department: department,
+//                     disease: found.disease.name,
+//                     symptoms: found.disease.symptoms,
+//                     treatment: null,
+//                     result: null
+//                 };
+//                 medicalRecords.push(record);
+
+//                 saveGameState(); // 保存游戏状态和病历本
+
+//                 // 绑定下一步按钮事件
+//                 const button = document.getElementById("nextButton");
+//                 button.onclick = () => showDisease(found);
+//             });
+//     } else {
+//         // 加载 wrongRoom.html 内容
+//         fetch('06 wrongRoom.html')
+//             .then(response => response.text())
+//             .then(html => {
+//                 choicesDiv.innerHTML = html;
+
+//                 // 绑定返回按钮事件
+//                 const button = document.getElementById("backButton");
+//                 button.onclick = () => backToChoice();
+//             });
+//     }
+// }
+
+//节点
+function backToChoice() {
+    currentStoryNode = story.triage;
+    showStory(currentStoryNode);
+}
+
+
+//病历本
+function saveGameState() {
+    const gameState = {
+        patientDiseases,
+        currentStoryNode,
+        currentDepartment,
+        money,
+        medicalRecords // 保存病历本
+    };
+    localStorage.setItem('gameState', JSON.stringify(gameState));
+    localStorage.setItem('medicalRecords', JSON.stringify(medicalRecords)); // 保存病历本到 localStorage
+}
+//节点
+function loadGameState() {
+    const gameState = JSON.parse(localStorage.getItem('gameState'));
+    if (gameState && gameState.currentStoryNode) {
+        patientDiseases = gameState.patientDiseases;
+        money = gameState.money;
+        currentStoryNode = gameState.currentStoryNode;
+        medicalRecords = gameState.medicalRecords || [];
+        showStory(currentStoryNode);
+    } else {
+        startGame(true);
+    }
+}
+
+
+
+//结算页
 function showEndPage() {
     currentStoryNode = story.end;
     showStory(currentStoryNode)
@@ -544,6 +644,7 @@ function showEndPage() {
         });
 }
 
+//生成随机的疾病
 function generateRandomDiseases() {
     const selectedDiseases = [];
     const diseaseDepartments = Object.keys(diseases);

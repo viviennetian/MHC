@@ -1,3 +1,4 @@
+console.log('diseases.js script is loading');
 const diseases = {
     "MEMETAG": [
         {
@@ -127,4 +128,132 @@ const diseases = {
             ]
         }
     ]
+};
+
+
+// 房间数据，存储图片和对话内容，但不再定义 treatments
+const chatRooms = {
+    "BODY": {
+        correct: {
+            character: ["body_character.svg"],
+            background: ["body_1_bg.svg"], // 加载背景图像
+            frontground: ["body_2_fg.svg"], // 加载背景图像
+            dialogs: [
+                "Welcome to the body department. Let's begin the diagnosis.",
+                "Here is some important information about your condition."
+            ],
+            treatmentStep: true // 在对话后展示治疗选项
+        },
+        wrong: {
+            character: ["body_character.svg"],
+            background: ["body_1_bg.svg"], // 加载背景图像
+            frontground: ["body_2_fg.svg"], // 加载背景图像
+            dialogs: [
+                "This isn't where you need to be. Please return to the elevator room."
+            ],
+            treatmentStep: false // 不展示治疗选项
+        }
+    },
+    "DATA": {
+        correct: {
+            character: ["data_character.svg"],
+            background: ["data_bg.svg"], // 加载背景图像
+            dialogs: [
+                "Welcome to the data department. Let's begin the diagnosis.",
+                "Here is some important information about your condition."
+            ],
+            treatmentStep: true // 在对话后展示治疗选项
+        },
+        wrong: {
+            character: ["data_character.svg"],
+            background: ["data_bg.svg"], // 加载背景图像
+            dialogs: [
+                "This isn't where you need to be. Please return to the elevator room."
+            ],
+            treatmentStep: false // 不展示治疗选项
+        }
+    },
+    "SOCIAL": {
+        correct: {
+            character: ["social_1_character.svg", "social_2_character.svg"],
+            background: ["social_bg.svg"], // 加载背景图像
+            frontground: ["social_fg.svg"], // 加载前景图像
+            dialogs: [
+                "Welcome to the social department. Let's begin the diagnosis.",
+                "Here is some important information about your condition."
+            ],
+            treatmentStep: true // 在对话后展示治疗选项
+        },
+        wrong: {
+            character: ["social_1_character.svg", "social_2_character.svg"],
+            background: ["social_bg.svg"], // 加载背景图像
+            frontground: ["social_fg.svg"], // 加载前景图像
+            dialogs: [
+                "This isn't where you need to be. Please return to the elevator room."
+            ],
+            treatmentStep: false // 不展示治疗选项
+        }
+    },
+    "VISUAL": {
+        correct: {
+            character: ["visual_character.svg"],
+            background: ["visual_bg.svg"], // 加载背景图像
+            frontground: ["visual_fg.svg"], // 加载前景图像
+            dialogs: [
+                "Welcome to the visual department. Let's begin the diagnosis.",
+                "Here is some important information about your condition."
+            ],
+            treatmentStep: true // 在对话后展示治疗选项
+        },
+        wrong: {
+            character: ["visual_character.svg"],
+            background: ["visual_bg.svg"], // 加载背景图像
+            frontground: ["visual_fg.svg"], // 加载前景图像
+            dialogs: [
+                "This isn't where you need to be. Please return to the elevator room."
+            ],
+            treatmentStep: false // 不展示治疗选项
+        }
+    },
+    "MEMETAG": {
+        correct: {
+            character: ["memetag_character.svg"],
+            background: ["memetag_bg.svg"], // 加载背景图像
+            dialogs: [
+                "Welcome to the memetag department. Let's begin the diagnosis.",
+                "Here is some important information about your condition."
+            ],
+            treatmentStep: true // 在对话后展示治疗选项
+        },
+        wrong: {
+            character: ["memetag_character.svg"],
+            background: ["memetag_bg.svg"], // 加载背景图像
+            dialogs: [
+                "This isn't where you need to be. Please return to the elevator room."
+            ],
+            treatmentStep: false // 不展示治疗选项
+        }
+    },
+    "DIGITAL": {
+        correct: {
+            character: ["digital_character.svg"],
+            background: ["digital_bg.svg"], // 加载背景图像
+            frontground: ["digital_fg.svg"], // 加载前景图像
+            dialogs: [
+                "Welcome to the digital department. Let's begin the diagnosis.",
+                "Here is some important information about your condition."
+            ],
+            treatmentStep: true // 在对话后展示治疗选项
+        },
+        wrong: {
+            character: ["digital_character.svg"],
+            background: ["digital_bg.svg"], // 加载背景图像
+            frontground: ["digital_fg.svg"], // 加载前景图像
+            dialogs: [
+                "This isn't where you need to be. Please return to the elevator room."
+            ],
+            treatmentStep: false // 不展示治疗选项
+        }
+    },
+    // 其他部门...
 };

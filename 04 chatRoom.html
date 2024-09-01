@@ -4,90 +4,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meme Health Center-reception</title>
+    <title>Meme Health Center - Chat Room</title>
     <link rel="stylesheet" href="style.css"> <!-- 引入CSS样式 -->
     <link rel="stylesheet" href="font.css">
-    <script src="game-logic.js" defer></script> <!-- 引入JavaScript文件 -->
     <style>
-        #diagnosis-department,
-        #pay1,
-        #goButton {
-            display: flex;
-            flex-direction: column;
+        #character-img {
+            width: 200px;
+            height: auto;
             margin-bottom: 20px;
-            width: 100%;
-            /* 让它们占满父容器的宽度 */
-            margin: 10px;
         }
 
-        #goButton {
-
-            bottom: 10px;
-            left: 10px;
-            padding: 30px;
-            color: black;
-            background-color: rgba(222, 187, 187, 0);
-            border: 2px solid #4CAF50;
-            cursor: pointer;
+        #dialog-text {
+            z-index: 20;
             font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-            font-size: 20px;
-            font-weight: 300;
+            font-size: 18px;
+            margin-bottom: 20px;
         }
 
-        #goButton:hover {
-            background-color: #cdfcff;
+        #goButton,
+        #backButton,
+        #nextButton {
+            z-index: 20;
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #treatment-options {
+            z-index: 20;
+            margin-top: 20px;
+        }
+
+        #background-container {
+            z-index: -2;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: calc(100%);
+            height: calc(100%);
+            background: no-repeat center center;
+            background-size: cover;
+            /* 或者使用 contain 根据需求调整 */
+        }
+
+        #character-container {
+            z-index: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: auto;
+        }
+
+        #frontground-container {
+            z-index: 1;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: calc(100%);
+            height: calc(100%);
+            background: no-repeat center center;
+            background-size: cover;
+            /* 或者使用 contain 根据需求调整 */
         }
     </style>
 </head>
 
 <body>
-    <!-- chatRoom.html -->
-    <div>This is:</div>
-    <div id="diagnosis-department"></div>
+    <!-- 背景图片和角色图片 -->
+    <div id="background-container"></div>
+    <div id="character-container"></div>
+    <div id="frontground-container"></div>
 
-    <button class="choice" id="goButton">go</button>
+    <div id="dialog-text"></div> <!-- 显示对话内容 -->
 
-
-    <script>
-        // 房间数据，存储图片和对话内容
-        const chatRooms = {
-            "Cardiology": {
-                character: "character1.png",
-                dialog: "Welcome to the Cardiology department."
-            },
-            "Neurology": {
-                character: "character2.png",
-                dialog: "Welcome to the Neurology department."
-            },
-            // 添加其他部门
-        };
-
-        // 动态加载内容的逻辑
-        document.addEventListener("DOMContentLoaded", function () {
-            const currentDepartment = window.currentDepartment || { department: "Unknown" }; // 假设 currentDepartment 是全局变量
-            const room = chatRooms[currentDepartment.department];
-
-            if (room) {
-                const characterImg = document.getElementById("character-img");
-                const dialogText = document.getElementById("dialog-text");
-
-                // 设置图片和对话内容
-                characterImg.src = `path/to/images/${room.character}`;
-                dialogText.innerText = room.dialog;
-
-                // 显示当前科室名称
-                const depDiv = document.getElementById("diagnosis-department");
-                depDiv.innerHTML = currentDepartment.department;
-            } else {
-                console.error('Room information not found for department:', currentDepartment.department);
-            }
-
-            // 为 go 按钮添加点击事件处理程序
-            const button = document.getElementById("goButton");
-            button.onclick = () => chatRoomActionDo(); // 绑定按钮点击事件
-        });
-    </script>
-
+    <div id="treatment-options" style="display: none;"></div>
+    <button class="choice" id="goButton" style="display: none;">Go</button>
+    <button class="choice" id="backButton" style="display: none;">Back to Lobby</button>
+    <button class="choice" id="nextButton" style="display: none;">Next</button>
 </body>
 
 </html>
