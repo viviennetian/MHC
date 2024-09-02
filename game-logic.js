@@ -267,8 +267,8 @@ function proceedToTriage() {
             // 为每个按钮添加点击事件处理程序
             buttons.forEach((button, index) => {
                 const departmentName = button.innerText.trim();
-                console.log(`Department Name: ${departmentName}`);
-                console.log(`Disease Data: `, diseases[departmentName]);
+                // console.log(`Department Name: ${departmentName}`);
+                // console.log(`Disease Data: `, diseases[departmentName]);
                 const department = {
                     department: departmentName,
                     disease: diseases[departmentName]
@@ -313,7 +313,8 @@ function processDiagnosis() {
         const record = {
             status: 'under treatment',
             department: currentDepartment['department'],
-            disease: found.disease.symptoms,
+            disease: found.disease.name,
+            symptoms: found.disease.symptoms,
             treatment: null,
             result: null
         };
@@ -346,7 +347,6 @@ function processDiagnosis() {
 
 // 初始化 chatRoom.html 相关的逻辑
 function initializeChatRoom() {
-    // console.log('initializeChatRoom is loading');
     console.log("Inside initializeChatRoom, currentDepartment:", currentDepartment);
 
     const room = chatRooms[currentDepartment.department]; // 选择的科室对应的房间数据
@@ -360,7 +360,6 @@ function initializeChatRoom() {
         scene.background.forEach(bg => {
             const bgElement = document.createElement("img");
             bgElement.src = `../image/${bg}`;
-            // console.log('Loading background image from:', bgElement.src);
             bgElement.classList.add("background-img");
             bgElement.onerror = () => console.error(`Failed to load background image: ${bgElement.src}`);
             backgroundContainer.appendChild(bgElement);
@@ -372,13 +371,11 @@ function initializeChatRoom() {
         scene.character.forEach(character => {
             const imgElement = document.createElement("img");
             imgElement.src = `../image/${character}`;
-            // console.log('Loading character image from:', imgElement.src);
             imgElement.classList.add("character-img");
-            // imgElement.onload = () => console.log('Character image loaded successfully:', imgElement.src);
             imgElement.onerror = () => console.error(`Failed to load character image: ${imgElement.src}`);
             characterContainer.appendChild(imgElement);
-            // console.log('Character image appended to container:', imgElement);
         });
+
         // 动态加载前景图像
         const frontgroundContainer = document.getElementById("frontground-container");
         frontgroundContainer.innerHTML = ""; // 清空之前的内容
@@ -386,7 +383,6 @@ function initializeChatRoom() {
             scene.frontground.forEach(fg => {
                 const fgElement = document.createElement("img");
                 fgElement.src = `../image/${fg}`;
-                // console.log('Loading frontground image from:', fgElement.src);
                 fgElement.classList.add("frontground-img");
                 fgElement.onerror = () => console.error(`Failed to load frontground image: ${fgElement.src}`);
                 frontgroundContainer.appendChild(fgElement);
@@ -402,23 +398,27 @@ function initializeChatRoom() {
 
         function showNextDialog() {
             console.log('showNextDialog called');
-            currentDialogIndex++;//每调用一次这个函数，currentDialogIndex 的值就会增加1，指向下一个对话段落。
+            currentDialogIndex++; // 每调用一次这个函数，currentDialogIndex 的值就会增加1，指向下一个对话段落。
             if (currentDialogIndex < scene.dialogs.length) {
-                dialogText.innerText = scene.dialogs[currentDialogIndex];//检查 currentDialogIndex 是否小于 scene.dialogs 的总长度。如果是，则更新 dialogText 的内容为下一段对话。
+                dialogText.innerText = scene.dialogs[currentDialogIndex]; // 更新 dialogText 的内容为下一段对话
             } else if (scene.treatmentStep) {
+                // 隐藏 nextButton 因为我们要显示治疗方案了
+                document.getElementById("nextButton").style.display = "none";
+
                 currentDepartment.disease.forEach(disease => {
                     const treatmentOptions = disease.treatments;
-                    // 处理每个 treatmentOptions
                     console.log('Treatment options:', treatmentOptions);
-                    loadTreatmentOptions(treatmentOptions);//对话完了加载治疗方案
+                    loadTreatmentOptions(treatmentOptions); // 对话完了加载治疗方案
                 });
 
             } else {
+                // 如果没有治疗方案，显示 goButton 或其他内容
+                document.getElementById("nextButton").style.display = "none"; // 隐藏 nextButton
                 document.getElementById("goButton").style.display = "block";
             }
         }
 
-        // 为下一步按钮绑定事件，用于切换到下一个对话段落
+        // 为 nextButton 绑定事件，用于切换到下一个对话段落
         document.getElementById("nextButton").onclick = showNextDialog;
 
         // 初始显示第一个对话段落
@@ -430,6 +430,7 @@ function initializeChatRoom() {
 
     document.getElementById("backButton").onclick = () => backToChoice();
 }
+
 
 //故事节点更新
 function chatRoomActionDo() {
@@ -466,29 +467,18 @@ function loadTreatmentOptions(treatmentOptions) {
     // document.getElementById("nextButton").style.display = "block"; // 显示“Next”按钮
 }
 
-// 处理治疗选择的函数（示例）  
+// 处理治疗选择的函数
 function handleTreatmentChoice(choice) {
+    console.log("Received choice:", choice); // 输出完整的 choice 对象
     const selectedDisease = choice.disease[0]; // 使用第一个疾病对象
-    console.log('Selected treatment:', choice.treatment.method, 'at', choice.treatment.price);
-
-    // 更新病历本
-    const record = {
-        status: '历史记录',
-        department: choice.department.department,
-        disease: selectedDisease.name, // 使用疾病的名字
-        symptoms: selectedDisease.symptoms, // 使用疾病的症状
-        treatment: choice.treatment.method,
-        result: choice.treatment.effect
-    };
-    medicalRecords.push(record);
-
+    console.log("Selected disease:", selectedDisease); // 输出选中的疾病对象
     treatmentComplete(choice);
     saveGameState(); // 保存游戏状态和病历本
 }
 
 //治疗选择之后的结果
 function treatmentComplete(choice) {
-    console.log("Treatment complete with treatment:", choice);
+    console.log("Treatment complete with choice:", choice); // 输出完整的 choice 对象
 
     if (money >= choice.treatment.price) {
         money -= choice.treatment.price;
@@ -501,28 +491,48 @@ function treatmentComplete(choice) {
         // 找到并移除对应的疾病
         for (let i = patientDiseases.length - 1; i >= 0; i--) {
             if (patientDiseases[i].department === choice.department.department) {
+                console.log("Removing disease:", patientDiseases[i]); // 输出即将移除的疾病
+
                 patientDiseases.splice(i, 1);
                 break;  // 移除后立即退出循环，确保只移除一个疾病
             }
         }
+        console.log("Updated patientDiseases after removal:", patientDiseases); // 输出移除疾病后的 patientDiseases
 
-        // 更新病历本
-        const record = {
-            status: 'history',
-            department: choice.department.department,
-            disease: choice.disease.disease.name,
-            symptoms: choice.disease.disease.symptoms,
-            treatment: choice.treatment.method,
-            result: choice.treatment.effect
-        };
-        medicalRecords.push(record);
+        //这里的病历本真的需要遍历吗
+        if (choice.disease && Array.isArray(choice.disease) && choice.disease.length > 0) {
+            choice.disease.forEach(disease => {
+                if (disease.name && disease.symptoms) {
+                    const record = {
+                        status: 'history',
+                        //在治疗选择之后更新病历本的record，这里应该全部显示
+                        department: choice.department.department,
+                        disease: disease.name,        // 使用疾病的名字
+                        symptoms: disease.symptoms,    // 使用疾病的症状
+                        treatment: choice.treatment.method,
+                        result: choice.treatment.effect
+                    };
+                    console.log("New treatment record:", record); // 输出新的治疗记录
+                    medicalRecords.push(record);
+                } else {
+                    console.error("Invalid disease structure:", disease);
+                }
+            });
+            console.log("Updated medical records after treatment:", medicalRecords); // 输出治疗后更新的病历本
+        } else {
+            console.error("Invalid disease array or structure:", choice.disease);
+        }
+
 
         saveGameState(); // 保存游戏状态和病历本
 
         document.getElementById("diseasesTips").innerHTML = "The triage desk recommends you go to:" + getDiseasesDepartment();
+        console.log("Remaining patient diseases:", patientDiseases); // 输出剩余的 patientDiseases
+
         if (patientDiseases.length > 0) {
             // 如果还有剩余疾病，继续选择下一个科室
             showStory(story.triage); // 继续分诊
+            console.log("Proceeding to triage...");
         } else {
             // 没有剩余疾病了，进入结算页
             showEndPage();
