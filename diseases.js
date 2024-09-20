@@ -130,6 +130,20 @@ const diseases = {
     ]
 };
 
+const officeChats = {
+    "girl": {
+        dialogs: [
+            "Welcome to the Meme Health Center! We are dedicated to helping you restore meme balance and mental clarity.Now just hurry up and fill out the form, and stop interrupting my selfies."
+
+        ],
+    },
+    "boy": {
+        dialogs: [
+            "This is Payment counter. Please enter how much you'd like to pay us. ",
+            "Remember, your actions will be recorded in your credit file.",
+        ]
+    }
+}
 
 // 房间数据，存储图片和对话内容，但不再定义 treatments
 const chatRooms = {
@@ -168,7 +182,7 @@ const chatRooms = {
             character: ["data_character.svg"],
             background: ["data_bg.svg"], // 加载背景图像
             dialogs: [
-                "This isn't where you need to be. Please return to the elevator room."
+                "This isn't where you need to be. Please return to the elevator hall."
             ],
             treatmentStep: false // 不展示治疗选项
         }
@@ -257,3 +271,77 @@ const chatRooms = {
     },
     // 其他部门...
 };
+
+const imageLinks = [
+    {
+        department: "MEMETAG",
+        diseaseName: "Tag Overload Syndrome",
+        imgSrc: "./image/record-logo/Tag Overload Syndrome.png"
+    },
+    {
+        department: "MEMETAG",
+        diseaseName: "15-Minute Fame Syndrome",
+        imgSrc: "./image/record-logo/15-Minute-Fame-Syndrome.png"
+    },
+    {
+        department: "MEMETAG",
+        diseaseName: "Meme-Induced Personality Split",
+        imgSrc: "./image/record-logo/Meme-Induced Personality Split.png"
+    },
+    {
+        department: "DIGITAL",
+        diseaseName: "Fake News Intoxication",
+        imgSrc: "./image/record-logo/Fake News Intoxication.png"
+    },
+    {
+        department: "DIGITAL",
+        diseaseName: "Digital Resonance Syndrome",
+        imgSrc: "./image/record-logo/Digital Resonance Syndrome.png"
+    },
+    {
+        department: "DATA",
+        diseaseName: "Virtual Self Splitting",
+        imgSrc: "./image/record-logo/Virtual Self Splitting.png"
+    },
+    {
+        department: "DATA",
+        diseaseName: "DATA Dermatitis",
+        imgSrc: "./image/record-logo/DATA Dermatitis.png"
+    },
+    {
+        department: "SOCIAL",
+        diseaseName: "Emoji Face Disorder",
+        imgSrc: "./image/record-logo/Emoji Face Disorder.png"
+    },
+    {
+        department: "SOCIAL",
+        diseaseName: "Reality Allergy",
+        imgSrc: "./image/record-logo/Reality Allergy.png"
+    },
+    {
+        department: "SOCIAL",
+        diseaseName: "Fear of Missing Out (FOMO)",
+        imgSrc: "./image/record-logo/Fear of Missing Out.png"
+    },
+    {
+        department: "SOCIAL",
+        diseaseName: "Meme Fountain Infection",
+        imgSrc: "./image/record-logo/Meme Fountain Infection.png"
+    },
+    {
+        department: "VISUAL",
+        diseaseName: "Hallucination Syndrome",
+        imgSrc: "./image/record-logo/Hallucination Syndrome.png"
+    },
+    {
+        department: "BODY",
+        diseaseName: "Label Body Disorder",
+        imgSrc: "./image/record-logo/Label Body Disorder.png"
+    },
+    {
+        department: "BODY",
+        diseaseName: "GIF Tremors",
+        imgSrc: "./image/record-logo/GIF Tremors.png"
+    },
+    // 其他图片链接映射...
+];

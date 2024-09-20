@@ -44,7 +44,7 @@ window.addEventListener('load', function () {
         backgroundContainer.innerHTML = ""; // 清空之前的内容
         scene.background.forEach(bg => {
             const bgElement = document.createElement("img");
-            bgElement.src = `../image/${bg}`;
+            bgElement.src = `./image/${bg}`;
             console.log('Loading background image from:', bgElement.src);
             bgElement.classList.add("background-img");
             bgElement.onerror = () => console.error(`Failed to load background image: ${bgElement.src}`);
@@ -56,7 +56,7 @@ window.addEventListener('load', function () {
         characterContainer.innerHTML = ""; // 清空之前的内容
         scene.character.forEach(character => {
             const imgElement = document.createElement("img");
-            imgElement.src = `../image/${character}`;
+            imgElement.src = `./image/${character}`;
             console.log('Loading character image from:', imgElement.src);
             imgElement.classList.add("character-img");
             imgElement.onerror = () => console.error(`Failed to load character image: ${imgElement.src}`);

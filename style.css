@@ -61,7 +61,7 @@ body {
     left: 16px;
     width: calc(100% - 32px);
     height: calc(100% - 32px);
-    background: url('../image/chessboard.svg') no-repeat center center;
+    background: url('./image/chessboard.svg') no-repeat center center;
     background-size: cover;
     /* 或者使用 contain 根据需求调整 */
 }
@@ -208,7 +208,7 @@ body {
     border: none;
     /* 移除边框 */
     cursor: pointer;
-    background-image: url('../image/record-button-default.svg');
+    background-image: url('./image/record-button-default.svg');
     /* 默认背景 */
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -227,7 +227,7 @@ body {
     /* 设置合适的按钮高度 */
     background-color: transparent;
     /* 确保背景透明 */
-    background-image: url('../image/record-button-hover.svg');
+    background-image: url('./image/record-button-hover.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -313,6 +313,19 @@ body {
     font-weight: 200;
 }
 
+/* 放每个疾病小logo的地方 */
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4列，每列宽度相等 */
+    grid-template-rows: repeat(4, 1fr);
+    /* 4行，每行高度相等 */
+    gap: 2px;
+    /* 网格项之间的间距 */
+    padding: 4px;
+    /* 网格容器的内边距 */
+    margin: 10px;
+}
 
 
 .no-records {
@@ -338,4 +351,21 @@ body {
 #close-button:focus {
     background-color: #cdfcff;
     cursor: pointer;
+}
+
+.custom-tooltip {
+    display: none;
+    /* 初始隐藏 */
+    position: absolute;
+    /* 绝对定位 */
+    padding: 4px 10px;
+    background-color: #fdf9becb;
+    border: 2px solid #ff0000;
+    font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+    font-size: 12px;
+    font-weight: 300;
+    pointer-events: none;
+    /* 不阻挡鼠标事件 */
+    z-index: 1000;
+    /* 确保在最上层 */
 }

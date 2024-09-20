@@ -174,17 +174,130 @@ function processEnd() {
 //proceedToStart
 function proceedToStart() {
     const choicesDiv = document.getElementById("choices");
+
+    // 使用 fetch 获取 01 reception.html 的内容
     fetch('01 reception.html')
         .then(response => response.text())
         .then(html => {
+            // 将获取到的 HTML 内容插入到 choicesDiv 中
             choicesDiv.innerHTML = html;
 
-            // 在 fetch 完成后，获取按钮元素，并设置点击事件处理程序
-            const button = document.getElementById("answerButton");
-            button.onclick = () => proceedToStartActionDo();
+            let currentDialogIndex = 0;
+
+            // 获取 girl 对象的 dialogs 数组
+            const dialogs = officeChats.girl.dialogs;
+            // 加载音效文件，并设置为循环播放
+            const typingSound = new Audio('./sound/mi.wav');
+            typingSound.addEventListener('canplaythrough', () => {
+                typingSound.loop = true;
+                typingSound.play();
+            });
+            // 打字机效果函数
+            function typeWriter(text, element, i, callback) {
+                if (i === 0) { // 打字开始时播放音效
+                    typingSound.currentTime = 0;
+                    typingSound.play();
+                }
+
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    setTimeout(() => typeWriter(text, element, i + 1, callback), 20);
+                } else if (callback) {
+                    typingSound.pause();
+                    typingSound.currentTime = 0;
+                    callback();
+                }
+            }
+
+            // 显示对话框
+            function showDialog(index) {
+                const dialogBox = document.getElementById("dialog-box-1");
+                if (!dialogBox) {
+                    console.error("Element with ID dialog-box-1 not found.");
+                    return;
+                }
+
+                dialogBox.style.display = "block";  // 显示 dialog-box-1
+
+                const assistentText = document.getElementById("assistentText-1");
+                if (!assistentText) {
+                    console.error("Element with ID assistentText-1 not found.");
+                    return;
+                }
+
+                typeWriter(dialogs[index], assistentText, 0, () => {
+                    const nextButton = document.getElementById("next-button-1");
+                    if (nextButton) {
+                        nextButton.style.display = "block"; // 显示 Next 按钮
+                    } else {
+                        console.error("Element with ID next-button-1 not found.");
+                    }
+                });
+            }
+
+            // 隐藏对话框
+            function hideDialogBox1() {
+                const dialogBox = document.getElementById("dialog-box-1");
+                if (dialogBox) {
+                    dialogBox.style.display = "none";
+                }
+            }
+
+            // 显示复选框
+            function showChecklist() {
+                const dialogBox2 = document.getElementById("dialog-box-2");
+                if (!dialogBox2) {
+                    console.error("Element with ID dialog-box-2 not found.");
+                    return;
+                }
+                dialogBox2.style.display = "block"; // 显示 dialog-box-2
+
+                const nextButton = document.getElementById("next-button-2");
+                if (nextButton) {
+                    nextButton.style.display = "block"; // 显示 Confirm 按钮
+                } else {
+                    console.error("Element with ID next-button-2 not found.");
+                }
+            }
+
+            // 初始显示第一个对话框
+            showDialog(currentDialogIndex);
+
+            // 绑定第一个对话框的 Next 按钮事件
+            document.getElementById("next-button-1").onclick = () => {
+                hideDialogBox1();  // 隐藏第一个对话框
+                showChecklist();   // 显示复选框和 Confirm 按钮
+            };
+
+            // 处理复选框的 Confirm 按钮事件
+            document.getElementById("next-button-2").onclick = () => {
+                // 检查是否有选中的复选框
+                const selectedStatements = [];
+                for (let i = 1; i <= 5; i++) {
+                    const checkbox = document.getElementById(`statement${i}`);
+                    if (checkbox.checked) {
+                        selectedStatements.push(checkbox.parentElement.textContent.trim());
+                    }
+                }
+
+                if (selectedStatements.length > 0) {
+                    // 至少有一个选项被选中，允许进入下一页
+                    console.log('Selected Statements:', selectedStatements); // 在控制台输出用户的选择
+                    proceedToStartActionDo();
+                } else {
+                    // 没有选项被选中，提示用户选择至少一个选项
+                    alert("Please select at least one option before proceeding.");
+                }
+            };
+        })
+        .catch(error => {
+            console.error("Error fetching HTML content:", error);
         });
 }
 
+
+
+//付钱页
 function proceedToStartActionDo() {
     const question1 = document.getElementById('question1');
     const diseasesTips = document.getElementById('diseasesTips');
@@ -196,8 +309,7 @@ function proceedToStartActionDo() {
 
     if (question1.value !== '') {
         console.log(patientDiseases);
-        //clear under treatment的病例
-
+        // 清除 under treatment 的病例
         medicalRecords = medicalRecords.filter(record => record.status !== 'under treatment');
         const record = {
             status: 'under treatment',
@@ -208,25 +320,86 @@ function proceedToStartActionDo() {
         };
         medicalRecords.push(record);
         saveGameState(); // 保存游戏状态和病历本
-        diseasesTips.innerHTML = "The triage desk recommends you go to:" + getDiseasesDepartment();
+        diseasesTips.innerHTML = "The triage desk recommends you go to: " + getDiseasesDepartment();
 
-        //替换现在界面
         // 加载 payment.html 并替换内容
         fetch('02 payment.html')
             .then(response => response.text())
             .then(html => {
                 choicesDiv.innerHTML = html;
 
-                // 设置 pay 按钮的点击事件
-                const button = document.getElementById("payButton");
-                button.onclick = () => pay1ActionDo();
+                // 处理动态生成的内容
+                let currentDialogIndex = 0;
+
+                const dialogs = [
+                    "This is Payment counter. Please enter how much you'd like to pay us.",
+                    "Remember, your actions will be recorded in your credit file."
+                ];
+
+                // 加载音效文件，并设置为循环播放
+                const typingSound = new Audio('./sound/re.wav'); // 请确保此路径正确指向你的音效文件
+                typingSound.loop = true;
+
+                // 打字机效果函数
+                function typeWriter(text, element, i, callback) {
+                    if (i === 0) {
+                        typingSound.currentTime = 0; // 重置音效到开头
+                        typingSound.play(); // 开始播放音效
+                    }
+
+                    if (i < text.length) {
+                        element.innerHTML = text.substring(0, i + 1); // 逐字符更新内容
+                        i++;
+                        setTimeout(() => typeWriter(text, element, i, callback), 20);
+                    } else if (callback) {
+                        typingSound.pause(); // 打字结束时暂停音效
+                        typingSound.currentTime = 0; // 重置音效时间
+                        callback();
+                    }
+                }
+
+                // 显示对话框
+                function showDialog(index) {
+                    const dialogBox = document.getElementById("text");
+                    if (!dialogBox) {
+                        console.error("Element with ID text not found.");
+                        return;
+                    }
+
+                    dialogBox.innerHTML = "";  // 清空对话框内容
+                    typeWriter(dialogs[index], dialogBox, 0, () => {
+                        const nextButton = document.getElementById("payButton");
+                        if (nextButton) {
+                            nextButton.style.display = "block"; // 显示按钮
+                        } else {
+                            console.error("Element with ID payButton not found.");
+                        }
+                    });
+                }
+
+                // 初始显示第一个对话框
+                showDialog(currentDialogIndex);
+
+                // 绑定 pay 按钮的点击事件
+                document.getElementById("payButton").onclick = () => {
+                    // 检查对话是否还有下一段
+                    if (currentDialogIndex < dialogs.length - 1) {
+                        currentDialogIndex++;
+                        showDialog(currentDialogIndex); // 显示下一个对话框
+                    } else {
+                        document.getElementById("pay1").style.display = "block"; // 显示支付输入框  
+                        document.getElementById("payButton").style.display = "block"; // 显示确认按钮  
+                        pay1ActionDo(); // 当对话完成后，执行支付逻辑
+                    }
+                };
             });
     } else {
-        proceedToStart();
+        proceedToStart(); // 如果 question1 为空，返回初始页面
     }
 }
 
-//付钱行为
+
+// 付钱行为
 function pay1ActionDo() {
     const pay1 = document.getElementById("pay1");
     if (pay1.value != '') {
@@ -234,9 +407,10 @@ function pay1ActionDo() {
         // 更新钱包显示
         document.getElementById("money").innerText = money;
         currentStoryNode = story.triage;
-        showStory(currentStoryNode)
+        showStory(currentStoryNode);
     }
 }
+
 
 function getDiseasesDepartment() {
     let department = "";
@@ -345,6 +519,7 @@ function processDiagnosis() {
         });
 }
 
+
 // 初始化 chatRoom.html 相关的逻辑
 function initializeChatRoom() {
     console.log("Inside initializeChatRoom, currentDepartment:", currentDepartment);
@@ -354,75 +529,95 @@ function initializeChatRoom() {
     if (room) {
         const scene = isCorrect ? room.correct : room.wrong; // 选择正确或错误的房间数据
 
-        // 动态加载背景图像
+        // 只有在正确的房间中才显示症状信息
+        if (isCorrect) {
+            const currentDisease = currentDepartment.disease[0]; // 假设当前处理第一个疾病
+            const symptoms = currentDisease.symptoms || "No symptoms available."; // 获取症状信息
+            scene.dialogs.splice(2, 0, `Symptoms: ${symptoms}`); // 插入症状信息
+        }
+
         const backgroundContainer = document.getElementById("background-container");
-        backgroundContainer.innerHTML = ""; // 清空之前的内容
+        backgroundContainer.innerHTML = "";
         scene.background.forEach(bg => {
             const bgElement = document.createElement("img");
-            bgElement.src = `../image/${bg}`;
+            bgElement.src = `./image/${bg}`;
             bgElement.classList.add("background-img");
-            bgElement.onerror = () => console.error(`Failed to load background image: ${bgElement.src}`);
             backgroundContainer.appendChild(bgElement);
         });
 
-        // 动态加载角色图像
         const characterContainer = document.getElementById("character-container");
-        characterContainer.innerHTML = ""; // 清空之前的内容
+        characterContainer.innerHTML = "";
         scene.character.forEach(character => {
             const imgElement = document.createElement("img");
-            imgElement.src = `../image/${character}`;
+            imgElement.src = `./image/${character}`;
             imgElement.classList.add("character-img");
-            imgElement.onerror = () => console.error(`Failed to load character image: ${imgElement.src}`);
             characterContainer.appendChild(imgElement);
         });
 
-        // 动态加载前景图像
         const frontgroundContainer = document.getElementById("frontground-container");
-        frontgroundContainer.innerHTML = ""; // 清空之前的内容
+        frontgroundContainer.innerHTML = "";
         if (scene.frontground && Array.isArray(scene.frontground) && scene.frontground.length > 0) {
             scene.frontground.forEach(fg => {
                 const fgElement = document.createElement("img");
-                fgElement.src = `../image/${fg}`;
+                fgElement.src = `./image/${fg}`;
                 fgElement.classList.add("frontground-img");
-                fgElement.onerror = () => console.error(`Failed to load frontground image: ${fgElement.src}`);
                 frontgroundContainer.appendChild(fgElement);
             });
-        } else {
-            console.log('No frontground data available, skipping frontground loading.');
         }
 
-        // 显示多个对话段落
         let currentDialogIndex = 0;
         const dialogText = document.getElementById("dialog-text");
-        dialogText.innerText = scene.dialogs[currentDialogIndex];
+
+        const typingSound = new Audio('./sound/dada.wav'); // 加载音效文件
+        typingSound.loop = true;
+
+        // 打字机效果函数
+        function typeWriter(text, i, callback) {
+            if (i === 0) {
+                typingSound.currentTime = 0; // 重置音效到开头
+                typingSound.play(); // 每次开始新对话时播放音效
+            }
+
+            if (i < text.length) {
+                dialogText.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(() => typeWriter(text, i, callback), 10); // 调整打字速度
+            } else if (callback) {
+                typingSound.pause(); // 打字结束时暂停音效
+                typingSound.currentTime = 0;
+                callback(); // 完成打字后执行回调
+            }
+        }
 
         function showNextDialog() {
-            console.log('showNextDialog called');
-            currentDialogIndex++; // 每调用一次这个函数，currentDialogIndex 的值就会增加1，指向下一个对话段落。
+            currentDialogIndex++;
             if (currentDialogIndex < scene.dialogs.length) {
-                dialogText.innerText = scene.dialogs[currentDialogIndex]; // 更新 dialogText 的内容为下一段对话
-            } else if (scene.treatmentStep) {
-                // 隐藏 nextButton 因为我们要显示治疗方案了
+                dialogText.innerHTML = "";
                 document.getElementById("nextButton").style.display = "none";
-
+                typeWriter(scene.dialogs[currentDialogIndex], 0, () => {
+                    document.getElementById("nextButton").style.display = "block";
+                });
+            } else if (scene.treatmentStep) {
+                document.getElementById("nextButton").style.display = "none";
                 currentDepartment.disease.forEach(disease => {
                     const treatmentOptions = disease.treatments;
-                    console.log('Treatment options:', treatmentOptions);
-                    loadTreatmentOptions(treatmentOptions); // 对话完了加载治疗方案
+                    loadTreatmentOptions(treatmentOptions);
                 });
-
             } else {
-                // 如果没有治疗方案，显示 goButton 或其他内容
-                document.getElementById("nextButton").style.display = "none"; // 隐藏 nextButton
-                document.getElementById("goButton").style.display = "block";
+                document.getElementById("nextButton").style.display = "none";
+                document.getElementById("backButton").style.display = "block";
+                document.getElementById("backButton").onclick = proceedToTriage;
             }
         }
 
         // 为 nextButton 绑定事件，用于切换到下一个对话段落
         document.getElementById("nextButton").onclick = showNextDialog;
 
-        // 初始显示第一个对话段落
-        document.getElementById("nextButton").style.display = "block";
+        // 初始显示第一个对话段落，带打字机效果
+        document.getElementById("nextButton").style.display = "none";
+        typeWriter(scene.dialogs[currentDialogIndex], 0, () => {
+            document.getElementById("nextButton").style.display = "block";
+        });
     } else {
         console.log('Current department name:', currentDepartment.department);
         console.error('Room information not found for department:', currentDepartment.department);
@@ -432,22 +627,25 @@ function initializeChatRoom() {
 }
 
 
-//故事节点更新
-function chatRoomActionDo() {
-    currentStoryNode = story.treatment;
-    showStory(currentStoryNode)
-}
 
 
+
+
+
+// 加载治疗方案的按钮
 function loadTreatmentOptions(treatmentOptions) {
     const treatmentOptionsDiv = document.getElementById("treatment-options");
+    document.getElementById("pleaseChoose").style.display = "block"; // 显示治疗选项按钮
     document.getElementById("treatment-options").style.display = "block"; // 显示治疗选项按钮
     treatmentOptionsDiv.innerHTML = ""; // 清空已有的治疗选项
+
     // 动态生成并添加治疗选项按钮
     if (treatmentOptions && Array.isArray(treatmentOptions)) {
         treatmentOptions.forEach(treatment => {
             const button = document.createElement("button");
-            button.textContent = `$${treatment.method} - ${treatment.price}`;
+            // 设置相同的 id
+            button.id = "treatment-button";
+            button.textContent = `${treatment.method} - $${treatment.price}`;
             button.onclick = function () {
                 console.log('Selected treatment:', treatment);
                 handleTreatmentChoice({
@@ -463,8 +661,6 @@ function loadTreatmentOptions(treatmentOptions) {
     } else {
         console.error('Treatment options are undefined or not an array');
     }
-
-    // document.getElementById("nextButton").style.display = "block"; // 显示“Next”按钮
 }
 
 // 处理治疗选择的函数
@@ -543,52 +739,6 @@ function treatmentComplete(choice) {
 }
 
 
-// function treatmentDo() {
-//     let department = currentDepartment['department'];
-//     const found = patientDiseases.find(item => item.department === department);
-
-//     const choicesDiv = document.getElementById("choices");
-//     choicesDiv.innerHTML = "";
-//     if (found) {
-//         console.log('department match');
-//         // 加载 treatment.html 内容
-//         fetch('05 treatment.html')
-//             .then(response => response.text())
-//             .then(html => {
-//                 choicesDiv.innerHTML = html;
-
-//                 // 更新病历本
-//                 console.log(found);
-//                 medicalRecords = medicalRecords.filter(record => record.status !== 'under treatment');
-//                 const record = {
-//                     status: 'under treatment',
-//                     department: department,
-//                     disease: found.disease.name,
-//                     symptoms: found.disease.symptoms,
-//                     treatment: null,
-//                     result: null
-//                 };
-//                 medicalRecords.push(record);
-
-//                 saveGameState(); // 保存游戏状态和病历本
-
-//                 // 绑定下一步按钮事件
-//                 const button = document.getElementById("nextButton");
-//                 button.onclick = () => showDisease(found);
-//             });
-//     } else {
-//         // 加载 wrongRoom.html 内容
-//         fetch('06 wrongRoom.html')
-//             .then(response => response.text())
-//             .then(html => {
-//                 choicesDiv.innerHTML = html;
-
-//                 // 绑定返回按钮事件
-//                 const button = document.getElementById("backButton");
-//                 button.onclick = () => backToChoice();
-//             });
-//     }
-// }
 
 //节点
 function backToChoice() {
@@ -676,14 +826,32 @@ function generateRandomDiseases() {
 }
 
 
-
 /**
- * 加载病历
+ * 根据病历信息获取图片链接
+ * @param {Object} record 病历记录
+ * @param {Object} disease 疾病对象
+ * @returns {string} 图片链接
  */
+function getImageForRecord(record, disease) {
+
+
+
+    const diseaseName = disease;  // 使用疾病对象的 name 属性
+
+    console.log(`Checking for diseaseName: ${diseaseName}`);
+
+    const matchedImage = imageLinks.find(link =>
+        link.diseaseName === diseaseName
+    );
+
+    return matchedImage ? matchedImage.imgSrc : './image/record-logo/default.png';
+}
+
 function loadMedicalRecords() {
     const medicalRecords = JSON.parse(localStorage.getItem('medicalRecords')) || [];
     const currentTreatmentRecordsDiv = document.getElementById('current-treatment-text');
     const historyTreatmentRecordsDiv = document.getElementById('history-treatment-text');
+    const gridContainer = document.getElementById('grid-container');
 
     const currentTreatmentRecords = medicalRecords.filter(record => record.status === 'under treatment');
     const historyRecords = medicalRecords.filter(record => record.status === 'history');
@@ -693,34 +861,90 @@ function loadMedicalRecords() {
 
     if (currentTreatmentRecords.length === 0) {
         currentTreatmentRecordsDiv.innerHTML = '<span style=" font-size: 18px; font-weight: 300; padding: 10px; display: block;">No ongoing treatment records.</span>';
-
-
     } else {
-        currentTreatmentRecordsDiv.innerHTML = currentTreatmentRecords.map(record =>
-            `<div>
+        currentTreatmentRecordsDiv.innerHTML = currentTreatmentRecords.map(record => {
+            const diseaseName = record.disease && record.disease.name ? record.disease.name : 'unknown';
+            const symptoms = record.disease && record.disease.symptoms ? record.disease.symptoms : 'unknown';
+            const treatments = Array.isArray(record.disease?.treatments)
+                ? record.disease.treatments.map(t => t.method).join(', ')
+                : 'untreated';
+
+            return `<div>
                 <strong>department:</strong> ${record.department}<br>
-                <strong>disease:</strong> ${record.disease}<br>
-                <strong>symptoms:</strong> ${record.symptoms || 'unknown'}<br>
-                <strong>treatment:</strong> ${record.treatment || 'untreated'}<br>
+                <strong>disease:</strong> ${diseaseName}<br>
+                <strong>symptoms:</strong> ${symptoms}<br>
+                <strong>treatment:</strong> ${treatments}<br>
                 <strong>result:</strong> ${record.result || 'unknown'}
-            </div>`
-        ).join('<br><br>');
+            </div>`;
+        }).join('<br><br>');
     }
 
     if (historyRecords.length === 0) {
-        currentTreatmentRecordsDiv.innerHTML = '<span style=" font-size: 18px; font-weight: 300; padding: 10px; display: block;">No history records available.</span>';
+        historyTreatmentRecordsDiv.innerHTML = '<span style="font-size: 18px; font-weight: 300; padding: 10px; display: block;">No history records available.</span>';
     } else {
-        historyTreatmentRecordsDiv.style.fontSize = '18px';
-        historyTreatmentRecordsDiv.style.padding = '10px';
-        historyTreatmentRecordsDiv.innerHTML = historyRecords.map(record =>
-            `<div>
-                <strong>department:</strong> ${record.department}<br>
-                <strong>disease:</strong> ${record.disease}<br>
-                <strong>symptoms:</strong> ${record.symptoms || 'unknown'}<br>
-                <strong>treatment:</strong> ${record.treatment || 'untreated'}<br>
-                <strong>result:</strong> ${record.result || 'unknown'}
-            </div>`
-        ).join('<br><br>');
+        historyTreatmentRecordsDiv.innerHTML = '';  // 清空历史记录的文字部分
+        gridContainer.innerHTML = '';  // 清空grid容器
+
+        // 仅显示历史记录中与该记录相关的疾病，而不是整个 department 的疾病
+        historyRecords.forEach(record => {
+            if (record.disease) {
+                // 如果 record.disease 是数组，处理每个疾病
+                if (Array.isArray(record.disease)) {
+                    record.disease.forEach(disease => {
+                        displayDisease(record, disease, gridContainer);
+                    });
+                } else {
+                    // 否则只处理单个疾病
+                    displayDisease(record, record.disease, gridContainer);
+                }
+            }
+        });
     }
+
 }
 
+function displayDisease(record, disease, container) {
+    const recordDiv = document.createElement('div');
+    const recordImg = document.createElement('img');
+
+    console.log(record);
+    console.log(disease);
+
+    // 获取图片链接
+    recordImg.src = getImageForRecord(record, disease);
+    recordImg.style.width = '40%';
+
+    // 添加自定义的悬浮提示框
+    const tooltip = document.createElement('div');
+    tooltip.classList.add('custom-tooltip');
+    tooltip.innerHTML = `Department: ${record.department}<br>Disease: ${record.disease}<br>Symptoms: ${record.symptoms || 'unknown'}<br>Result: ${record.result || 'unknown'}`;
+    tooltip.style.display = 'none'; // 初始状态隐藏
+    tooltip.style.position = 'absolute';
+
+    // 显示 tooltip
+    recordImg.addEventListener('mouseover', function (event) {
+        tooltip.style.display = 'block';
+        tooltip.style.left = event.pageX + 'px';
+        tooltip.style.top = event.pageY + 'px';
+    });
+
+    // 隐藏 tooltip
+    recordImg.addEventListener('mouseout', function () {
+        tooltip.style.display = 'none';
+    });
+
+    recordDiv.appendChild(recordImg);
+    container.appendChild(recordDiv);
+    container.appendChild(tooltip); // 将 tooltip 添加到容器中
+}
+
+// 在页面加载时检查是否存在关闭标记
+if (localStorage.getItem('pageClosed') === 'true') {
+    localStorage.clear();
+    localStorage.removeItem('pageClosed'); // 清除标记
+}
+
+// 在页面卸载之前设置关闭标记
+window.addEventListener('beforeunload', function () {
+    localStorage.setItem('pageClosed', 'true');
+});

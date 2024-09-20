@@ -8,75 +8,26 @@
     <link rel="stylesheet" href="style.css"> <!-- 引入CSS样式 -->
     <link rel="stylesheet" href="font.css">
 
-
     <style>
         #reception {
             display: flex;
-            position: absolute;
+            position: relative;
+            width: 100%;
+            height: 100%;
         }
 
-        /* 让 #reception 作为一个垂直方向的 flex 容器 */
         #reception-content {
             display: flex;
-            flex-direction: column;
             align-items: stretch;
-            z-index: 20;
-
-        }
-
-        #question1,
-        #answerButton {
-            border: 2px solid red;
-            background-color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 20px;
-
-            margin: 10px;
-        }
-
-        #answerButton {
-            bottom: 0;
-            padding: 15px;
-            color: black;
-            cursor: pointer;
-            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-            font-size: 20px;
-            font-weight: 300;
-            align-self: flex-start;
-            /* 确保按钮与前面的文本对齐 */
-        }
-
-        #answerButton:hover {
-            background-color: #00ffff;
-            transition: background-color 0.2s ease-in-out;
-        }
-
-        #question1 {
-            width: 100%;
-            /* 确保输入框占满父容器的宽度 */
-            box-sizing: border-box;
-        }
-
-        #dialog-box {
-            position: absolute;
-            bottom: 44%;
-            /* 根据需要调整对话框的位置 */
-            left: 16%;
-            width: 300px;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.7);
-            border: 2px solid red;
-            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
-            font-size: 15px;
-            font-weight: 300;
-            z-index: 20;
+            z-index: 200;
+            top: 100px;
+            left: 10px;
         }
 
         #typing-text {
             white-space: pre-line;
             visibility: hidden;
-            /* 初始隐藏文本，等待打字机效果显示 */
         }
-
 
         #regi-back1 {
             position: absolute;
@@ -92,7 +43,7 @@
             bottom: 10vh;
             left: 36%;
             z-index: -8;
-            width: 160px;
+            width: 130px;
             height: auto;
         }
 
@@ -104,53 +55,161 @@
             width: 100%;
             height: auto;
         }
+
+        #dialog-box-1,
+        #dialog-box-2 {
+            position: absolute;
+            top: 45%;
+            left: 10%;
+            padding: 10px 20px;
+            max-width: 220px;
+            background-color: #ffffff9f;
+            border: 1px solid #ff0000;
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        #dialog-box-2 {
+            padding: 10px 20px;
+            max-width: 360px;
+            right: 10%;
+            left: auto;
+        }
+
+        #next-button-1,
+        #next-button-2 {
+            top: -2px;
+            left: 220px;
+            margin-top: 10px;
+            padding: 4px 20px;
+            background-color: #ffffff;
+            border: 1px solid #ff0000;
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        #checklist {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .checkbox-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            max-width: 260px;
+            /* 限制整体宽度，但不要压缩复选框 */
+        }
+
+        input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"]+span {
+            display: flex;
+            width: 24px;
+            /* 统一宽度 */
+            height: 24px;
+            /* 统一高度 */
+            border: 1px solid #ff0000;
+            background-color: #ffffff;
+            margin-left: 10px;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+            /* 禁止 flex 布局压缩复选框大小 */
+            min-width: 24px;
+            /* 设置最小宽度，确保不会被压缩 */
+            min-height: 24px;
+            /* 设置最小高度，确保不会被压缩 */
+        }
+
+        input[type="checkbox"]:checked+span {
+            background-color: #ff0000;
+            border-color: #ffffff;
+        }
+
+        input[type="checkbox"]:checked+span:before {
+            content: '\2713';
+            color: white;
+            position: absolute;
+            top: 0;
+            left: 3px;
+            font-size: 14px;
+        }
+
+        /* Added new rule to allow entire label area to be clickable */
+        label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body id="reception">
 
-    <img src="../image/regi-back1.svg" alt="regi-back1" id="regi-back1">
-    <img src="../image/office-g.svg" alt="office-g" id="office-g">
-    <img src="../image/regi-back2.svg" alt="regi-back2" id="regi-back2">
-    <div id="reception-content">
+    <img src="./image/regi-back1.svg" alt="regi-back1" id="regi-back1">
+    <img src="./image/office-g.svg" alt="office-g" id="office-g">
+    <img src="./image/regi-back2.svg" alt="regi-back2" id="regi-back2">
 
+    <div id="reception-content">
         <div id="dialog-box-1" class="dialog-box">
-            <div id="assistentText-1">
-                <p id="typing-text-1" data-text="Assistant: Welcome to the Meme Health Center.&#10;
-            We are dedicated to helping you restore meme balance and mental clarity.&#10;
-            Now just hurry up and fill out the form, and stop interrupting my selfies.">
-                </p>
-            </div>
-            <button id="next-button-1" style="display:none;" class="clickable">Next</button>
+            <div id="assistentText-1"></div>
+            <button id="next-button-1" style="display:none;" class="clickable">the form</button>
         </div>
 
         <div id="dialog-box-2" class="dialog-box" style="display:none;">
-            <div id="assistentText-2">
-                Assistant:
-                <p id="typing-text-2"
-                    data-text="Please review the following statements and select the ones that apply to you.">
-                </p>
-            </div>
             <ul id="checklist">
-                <li><label><input type="checkbox" id="statement1"> I need help with stress management.</label></li>
-                <li><label><input type="checkbox" id="statement2"> I am interested in improving my sleep
-                        quality.</label>
+                <li class="checkbox-label">
+                    <label for="statement1">
+                        <span>Do you find yourself unable to stop thinking?</span>
+                        <input type="checkbox" id="statement1">
+                        <span></span>
+                    </label>
                 </li>
-                <li><label><input type="checkbox" id="statement3"> I want to work on my fitness goals.</label></li>
-                <li><label><input type="checkbox" id="statement4"> I need support for mental health.</label></li>
-                <li><label><input type="checkbox" id="statement5"> I am looking for nutritional advice.</label></li>
+                <li class="checkbox-label">
+                    <label for="statement2">
+                        <span>Do you constantly focus on others' opinions?</span>
+                        <input type="checkbox" id="statement2">
+                        <span></span>
+                    </label>
+                </li>
+                <li class="checkbox-label">
+                    <label for="statement3">
+                        <span>Are you worried that you are not following popular trends well enough?</span>
+                        <input type="checkbox" id="statement3">
+                        <span></span>
+                    </label>
+                </li>
+                <li class="checkbox-label">
+                    <label for="statement4">
+                        <span>Have you ever come close to the Meme Fountain?</span>
+                        <input type="checkbox" id="statement4">
+                        <span></span>
+                    </label>
+                </li>
+                <li class="checkbox-label">
+                    <label for="statement5">
+                        <span>Are you here to address memory issues?</span>
+                        <input type="checkbox" id="statement5">
+                        <span></span>
+                    </label>
+                </li>
             </ul>
             <button id="next-button-2" style="display:none;" class="clickable">Confirm</button>
         </div>
-
-        <input id='question1' value=''>
-        <button class="choice clickable" id="answerButton">Answer</button>
-
-
     </div>
+
     <script src="game-logic.js" defer></script> <!-- 引入JavaScript文件 -->
     <script src="sound/click-sound.js"></script>
-    <script src="typewriter.js"></script>
 
 </body>
 

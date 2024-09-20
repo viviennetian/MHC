@@ -249,14 +249,26 @@
             }
         }
 
-        #thisisplace,
-        #pay1,
-        #payButton {
-            margin-bottom: 20px;
-            width: 100%;
-            /* 让它们占满父容器的宽度 */
-            margin: 10px;
-
+        #thisisplace {
+            display: flex;
+            flex-direction: column;
+            /* 使内部元素按列排列 */
+            align-items: flex-start;
+            /* 元素左对齐 */
+            justify-content: flex-start;
+            /* 垂直方向从顶部排列 */
+            position: absolute;
+            top: 45%;
+            left: 10%;
+            padding: 10px 20px;
+            max-width: 220px;
+            background-color: #ffffff9f;
+            border: 1px solid #ff0000;
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            font-size: 14px;
+            font-weight: 300;
+            gap: 10px;
+            /* 控制元素之间的间距 */
         }
     </style>
 

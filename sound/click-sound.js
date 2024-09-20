@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const audio = new Audio('../sound/click.wav');
+    const audio = new Audio('./sound/click.wav');
     audio.volume = 1.0;  // 音量设定
     audio.muted = false; // 确保音频未被静音
 

@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let i = 0;
 
         // 加载音效文件，并设置为循环播放
-        const typingSound = new Audio('../sound/typing.wav'); // 请确保此路径正确指向你的音效文件
+        const typingSound = new Audio('./sound/typing.wav'); // 请确保此路径正确指向你的音效文件
         typingSound.loop = true;
         typingSound.play(); // 开始播放音效
 

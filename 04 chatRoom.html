@@ -51,7 +51,7 @@
         #character-container {
             z-index: 0;
             position: absolute;
-            top: 50%;
+            top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 100px;
@@ -69,6 +69,76 @@
             background-size: cover;
             /* 或者使用 contain 根据需求调整 */
         }
+
+        #dialog-box {
+            display: flex;
+            z-index: 200;
+            flex-direction: column;
+            /* 使内部元素按列排列 */
+            align-items: flex-start;
+            /* 元素左对齐 */
+            justify-content: flex-start;
+            /* 垂直方向从顶部排列 */
+            position: absolute;
+            top: 45%;
+            left: 10%;
+            padding: 10px 20px;
+            max-width: 300px;
+            background-color: #ffffff9f;
+            border: 1px solid #ff0000;
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        #dialog-text {
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        #goButton,
+        #backButton,
+        #nextButton,
+        #treatment-button {
+            padding: 4px 20px;
+            background-color: #ffffff;
+            border: 1px solid #ff0000;
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            font-size: 14px;
+            font-weight: 300;
+            cursor: pointer;
+        }
+
+        #goButton:hover,
+        #backButton:hover,
+        #nextButton:hover,
+        #treatment-button:hover {
+            background-color: #ffffdc;
+        }
+
+        #treatment-options {
+            display: flex;
+            z-index: 200;
+            flex-direction: column;
+            /* 使内部元素按列排列 */
+            align-items: flex-start;
+            /* 元素左对齐 */
+            justify-content: flex-start;
+            /* 垂直方向从顶部排列 */
+            position: absolute;
+            top: 45%;
+            right: 10%;
+            padding: 10px 20px;
+            max-width: 350px;
+            background-color: #ffffff9f;
+            border: 1px solid #ff0000;
+            font-family: 'ABC Diatype Semi-Mono Variable Unlicensed Trial';
+            font-size: 14px;
+            font-weight: 300;
+            gap: 10px;
+            /* 控制元素之间的间距 */
+        }
     </style>
 </head>
 
@@ -77,13 +147,14 @@
     <div id="background-container"></div>
     <div id="character-container"></div>
     <div id="frontground-container"></div>
-
-    <div id="dialog-text"></div> <!-- 显示对话内容 -->
-
+    <div id="dialog-box">
+        <div id="dialog-text"></div> <!-- 显示对话内容 -->
+        <button class="choice" id="goButton" style="display: none;">Go</button>
+        <button class="choice" id="backButton" style="display: none;">Back to Lobby</button>
+        <button class="choice" id="nextButton" style="display: none;">Next</button>
+    </div>
+    <div id="pleaseChoose" style="display: none;">Please choose your treatment:</div>
     <div id="treatment-options" style="display: none;"></div>
-    <button class="choice" id="goButton" style="display: none;">Go</button>
-    <button class="choice" id="backButton" style="display: none;">Back to Lobby</button>
-    <button class="choice" id="nextButton" style="display: none;">Next</button>
 </body>
 
 </html>
